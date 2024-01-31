@@ -4,7 +4,7 @@ import axios from "axios-web";
 
 interface LocalMutation {
   text: string | null;
-  completed: boolean;
+  url: string | null;
 }
 
 export default function TodoListView(props: {
@@ -52,7 +52,7 @@ export default function TodoListView(props: {
               .map(([id, mut]) => ({
                 id,
                 text: mut.text,
-                completed: mut.completed,
+                url: mut.url,
               }));
             while (true) {
               try {
@@ -83,18 +83,18 @@ export default function TodoListView(props: {
 
     const id = generateItemId();
     localMutations.current.set(id, {
-      text: value,
-      completed: false,
+      text: "",
+      url: value,
     });
     setHasLocalMutations(true);
     setAdding(true);
   }, []);
 
   const saveTodo = useCallback(
-    (item: TodoListItem, text: string | null, completed: boolean) => {
+    (item: TodoListItem, text: string | null, url: string | null) => {
       localMutations.current.set(item.id!, {
         text,
-        completed,
+        url,
       });
       setHasLocalMutations(true);
     },
@@ -105,18 +105,15 @@ export default function TodoListView(props: {
     <div class="w-full">
       <div class="flex flex-col gap-4 pb-4">
         <div class="flex flex-row gap-2 items-center">
-          <h1 class="font-bold text-xl">Todo List</h1>
           <div
             class={`inline-block h-2 w-2 ${
-              busy ? "bg-yellow-600" : "bg-green-600"
+              busy ? "bg-yellow-600" : "bg-primary"
             }`}
             style={{ borderRadius: "50%" }}
           ></div>
-        </div>
-        <div class="flex">
-          <p class="opacity-50 text-sm">
+          <span class="opacity-50 text-sm">
             Share this page to collaborate with others.
-          </p>
+          </span>
         </div>
         <div class="flex">
           <input
@@ -124,13 +121,15 @@ export default function TodoListView(props: {
             placeholder="Add a todo item"
             ref={addTodoInput}
           />
-          <button
-            class="p-2 bg-blue-600 text-white rounded disabled:opacity-50"
-            onClick={addTodo}
-            disabled={adding}
-          >
-            Add
-          </button>
+          <div class="rounded-lg bg-gradient-to-tr from-secondary to-primary p-px">
+            <button
+              onClick={addTodo}
+              disabled={adding}
+              class="text-center text-white rounded-[7px] transition duration-300 px-4 py-2 block hover:bg-white hover:text-black hover:dark:bg-gray-900 hover:dark:!text-white"
+            >
+              Add
+            </button>
+          </div>
         </div>
       </div>
       <div>
@@ -142,7 +141,7 @@ export default function TodoListView(props: {
           />
         ))}
       </div>
-      <div class="pt-6 opacity-50 text-sm">
+      <div class="pt-3 opacity-50 text-sm">
         <p>Initial data fetched in {props.latency}ms</p>
       </div>
     </div>
@@ -154,7 +153,7 @@ function TodoItem({
   save,
 }: {
   item: TodoListItem;
-  save: (item: TodoListItem, text: string | null, completed: boolean) => void;
+  save: (item: TodoListItem, text: string | null, url: string | null) => void;
 }) {
   const input = useRef<HTMLInputElement>(null);
   const [editing, setEditing] = useState(false);
@@ -162,26 +161,19 @@ function TodoItem({
   const doSave = useCallback(() => {
     if (!input.current) return;
     setBusy(true);
-    save(item, input.current.value, item.completed);
+    save(item, null, input.current.value);
   }, [item]);
   const cancelEdit = useCallback(() => {
     if (!input.current) return;
     setEditing(false);
-    input.current.value = item.text;
+    input.current.value = item.text ?? "";
   }, []);
   const doDelete = useCallback(() => {
     const yes = confirm("Are you sure you want to delete this item?");
     if (!yes) return;
     setBusy(true);
-    save(item, null, item.completed);
+    save(item, null, null);
   }, [item]);
-  const doSaveCompleted = useCallback(
-    (completed: boolean) => {
-      setBusy(true);
-      save(item, item.text, completed);
-    },
-    [item]
-  );
 
   return (
     <div
@@ -193,7 +185,7 @@ function TodoItem({
           <input
             class="border rounded w-full py-2 px-3 mr-4"
             ref={input}
-            defaultValue={item.text}
+            defaultValue={item.url}
           />
           <button
             class="p-2 rounded mr-2 disabled:opacity-50"
@@ -215,27 +207,12 @@ function TodoItem({
       )}
       {!editing && (
         <>
-          <input
-            type="checkbox"
-            checked={item.completed}
-            disabled={busy}
-            onChange={(e) => doSaveCompleted(e.currentTarget.checked)}
-            class="mr-2"
-          />
           <div class="flex flex-col w-full font-mono">
-            <p>{item.text}</p>
+            <p>{item.url || item.text}</p>
             <p class="text-xs opacity-50 leading-loose">
               {new Date(item.createdAt).toISOString()}
             </p>
           </div>
-          <button
-            class="p-2 mr-2 disabled:opacity-50"
-            title="Edit"
-            onClick={() => setEditing(true)}
-            disabled={busy}
-          >
-            ✏️
-          </button>
           <button
             class="p-2 disabled:opacity-50"
             title="Delete"

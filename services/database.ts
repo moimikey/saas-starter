@@ -6,7 +6,7 @@ export const inputSchema = z.array(
   z.object({
     id: z.string(),
     text: z.string().nullable(),
-    completed: z.boolean(),
+    url: z.string().nullable(),
   })
 );
 export type InputSchema = z.infer<typeof inputSchema>;
@@ -47,7 +47,7 @@ export async function writeItems(
   const op = db.atomic();
 
   inputs.forEach((input, i) => {
-    if (input.text === null) {
+    if (input.text === null && input.url === null) {
       op.delete(["list", listId, input.id]);
     } else {
       const current = currentEntries[i].value as TodoListItem | null;
@@ -55,8 +55,8 @@ export async function writeItems(
       const createdAt = current?.createdAt ?? now;
 
       const item: TodoListItem = {
-        text: input.text,
-        completed: input.completed,
+        text: input.text ?? "",
+        url: input.url ?? "",
         createdAt,
         updatedAt: now,
       };

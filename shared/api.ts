@@ -3,14 +3,11 @@ export interface TodoList {
 }
 
 export interface TodoListItem {
-  // Non-empty in API request and response
   id?: string;
-
-  // Non-empty in API response
   versionstamp?: string;
 
-  text: string;
-  completed: boolean;
+  text?: string;
+  url?: string;
   createdAt: number;
   updatedAt: number;
 }
