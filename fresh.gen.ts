@@ -11,6 +11,7 @@ import * as $account_upgrade from './routes/account/upgrade.ts';
 import * as $api_admin_promote_login_ from './routes/api/admin/promote/[login].ts';
 import * as $api_items_id_ from './routes/api/items/[id].ts';
 import * as $api_items_index from './routes/api/items/index.ts';
+import * as $api_items_sse from './routes/api/items/sse.ts';
 import * as $api_me_votes from './routes/api/me/votes.ts';
 import * as $api_stripe_webhooks from './routes/api/stripe-webhooks.ts';
 import * as $api_users_login_index from './routes/api/users/[login]/index.ts';
@@ -24,12 +25,15 @@ import * as $dashboard_stats from './routes/dashboard/stats.tsx';
 import * as $dashboard_users from './routes/dashboard/users.tsx';
 import * as $feed from './routes/feed.ts';
 import * as $index from './routes/index.tsx';
+import * as $links_listId_ from './routes/links/[listId].tsx';
+import * as $links_index from './routes/links/index.tsx';
 import * as $pricing from './routes/pricing.tsx';
 import * as $submit from './routes/submit.tsx';
 import * as $users_login_ from './routes/users/[login].tsx';
 import * as $welcome from './routes/welcome.tsx';
 import * as $Chart from './islands/Chart.tsx';
 import * as $ItemsList from './islands/ItemsList.tsx';
+import * as $TodoListView from './islands/TodoListView.tsx';
 import * as $UsersTable from './islands/UsersTable.tsx';
 import { type Manifest } from '$fresh/server.ts';
 
@@ -44,6 +48,7 @@ const manifest = {
     './routes/api/admin/promote/[login].ts': $api_admin_promote_login_,
     './routes/api/items/[id].ts': $api_items_id_,
     './routes/api/items/index.ts': $api_items_index,
+    './routes/api/items/sse.ts': $api_items_sse,
     './routes/api/me/votes.ts': $api_me_votes,
     './routes/api/stripe-webhooks.ts': $api_stripe_webhooks,
     './routes/api/users/[login]/index.ts': $api_users_login_index,
@@ -57,6 +62,8 @@ const manifest = {
     './routes/dashboard/users.tsx': $dashboard_users,
     './routes/feed.ts': $feed,
     './routes/index.tsx': $index,
+    './routes/links/[listId].tsx': $links_listId_,
+    './routes/links/index.tsx': $links_index,
     './routes/pricing.tsx': $pricing,
     './routes/submit.tsx': $submit,
     './routes/users/[login].tsx': $users_login_,
@@ -65,6 +72,7 @@ const manifest = {
   islands: {
     './islands/Chart.tsx': $Chart,
     './islands/ItemsList.tsx': $ItemsList,
+    './islands/TodoListView.tsx': $TodoListView,
     './islands/UsersTable.tsx': $UsersTable,
   },
   baseUrl: import.meta.url,
