@@ -6,21 +6,21 @@
 # This workflow will install Deno then run `deno lint` and `deno test`.
 # For more information see: https://github.com/denoland/setup-deno
 
-name: Deno
+name: Deploy
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
   pull_request:
-    branches: ["main"]
+    branches: main
 
 permissions:
   id-token: write # Needed for auth with Deno Deploy
   contents: read # Needed to clone the repository
 
 jobs:
-  test:
-    name: Test
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -32,11 +32,11 @@ jobs:
         with:
           deno-version: v1.x
 
-      - name: Verify formatting
-        run: deno fmt --check
+      - name: Build step
+        run: "deno task build" # 📝 Update the build command(s) if necessary
 
-      - name: Run linter
-        run: deno lint
-
-      - name: Run tests
-        run: deno test -A
+      - name: Upload to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "wise-lynx-73" # 📝 Update the deploy project name if necessary
+          entrypoint: "./main.ts" # 📝 Update the entrypoint if necessary
