@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 .button-styles {
   @apply px-4 py-2 bg-primary text-white rounded-lg border border-primary transition duration-100 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-transparent hover:text-primary;
 }
@@ -39,4 +40,20 @@
 
 .heading-with-margin-styles {
   @apply text-3xl font-bold mb-8;
+}
+
+h1, footer {
+  -webkit-text-fill-color: transparent;
+  background-color: #FFF;
+  background-image: url(https://media.giphy.com/media/9JxkPTP3alOykb8PmQ/source.gif);
+  background-clip: text;
+  background-size: 200% 200%;
+}
+
+.iframely div > div {
+  height: 162px !important;
+}
+
+.iframely iframe {
+
 }

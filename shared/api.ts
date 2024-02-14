@@ -1,8 +1,8 @@
-export interface TodoList {
-  items: TodoListItem[];
+export interface FeedList {
+  items: FeedListItem[];
 }
 
-export interface TodoListItem {
+export interface FeedListItem {
   id?: string;
   versionstamp?: string;
 

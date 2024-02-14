@@ -1,4 +1,4 @@
-import { TodoList, TodoListItem } from "@/shared/api.ts";
+import { FeedList, FeedListItem } from "@/shared/api.ts";
 import { z } from "zod";
 
 export const db = await Deno.openKv();
@@ -14,8 +14,8 @@ export type InputSchema = z.infer<typeof inputSchema>;
 export async function loadList(
   id: string,
   consistency: "strong" | "eventual"
-): Promise<TodoList> {
-  const out: TodoList = {
+): Promise<FeedList> {
+  const out: FeedList = {
     items: [],
   };
 
@@ -27,7 +27,7 @@ export async function loadList(
     }
   );
   for await (const entry of it) {
-    const item = entry.value as TodoListItem;
+    const item = entry.value as FeedListItem;
     item.id = entry.key[entry.key.length - 1] as string;
     item.versionstamp = entry.versionstamp!;
     out.items.push(item);
@@ -50,11 +50,11 @@ export async function writeItems(
     if (input.text === null && input.url === null) {
       op.delete(["list", listId, input.id]);
     } else {
-      const current = currentEntries[i].value as TodoListItem | null;
+      const current = currentEntries[i].value as FeedListItem | null;
       const now = Date.now();
       const createdAt = current?.createdAt ?? now;
 
-      const item: TodoListItem = {
+      const item: FeedListItem = {
         text: input.text ?? "",
         url: input.url ?? "",
         createdAt,
