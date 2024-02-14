@@ -18,7 +18,7 @@ export default function Iframely(props: IframelyProps) {
       fetch(
         `https://cdn.iframe.ly/api/iframely?url=${encodeURIComponent(
           props.url
-        )}&api_key=${KEY}&iframe=1&omit_script=1&ssl=1&card=0`
+        )}&api_key=${KEY}&iframe=1&omit_script=1&ssl=1&card=small`
       )
         .then((res) => res.json())
         .then(
