@@ -1,6 +1,6 @@
 ---
 title: This is my first blog post!
-publishedAt: 2022-11-04T15:00:00.000Z
+publishedAt: Mon Feb 19 22:50:48 EST 2024
 summary: This is an excerpt of my first blog post.
 ---
 
