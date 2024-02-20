@@ -15,7 +15,7 @@
 }
 
 .nav-styles {
-  @apply flex flex-wrap justify-start gap-x-8 gap-y-4 items-center justify-between h-full;
+  @apply flex flex-wrap gap-x-8 gap-y-4 items-center justify-between h-full;
 }
 
 .nav-item {
