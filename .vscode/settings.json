@@ -1,15 +1,16 @@
 {
-  "deno.enable": true,
-  "deno.lint": true,
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "denoland.vscode-deno",
-  "deno.unstable": false,
-  "deno.config": "deno.json",
-  "deno.defaultTaskCommand": "run",
+  "css.customData": [".vscode/tailwind.json"],
   "deno.codeLens.implementations": true,
   "deno.codeLens.references": true,
   "deno.codeLens.referencesAllFunctions": true,
   "deno.codeLens.test": true,
+  "deno.config": "deno.json",
+  "deno.defaultTaskCommand": "run",
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": false,
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "editor.formatOnSave": true,
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
