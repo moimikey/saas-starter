@@ -69,7 +69,11 @@ export default function Header(props: HeaderProps) {
           Dashboard
         </a>
         <a
-          href="/links"
+          href={
+            props.sessionUser
+              ? `/links/${props.sessionUser.login}`
+              : "/links/public"
+          }
           class="link-styles data-[ancestor]:!text-primary data-[ancestor]:dark:!text-white nav-item"
         >
           Links
