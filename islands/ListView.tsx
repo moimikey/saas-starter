@@ -12,10 +12,6 @@ export default function ListView(props: {
   initialData: FeedList;
   latency: number;
 }) {
-  // if (!props.initialData) {
-  //   return null;
-  // }
-
   const [data, setData] = useState(props.initialData);
   const [dirty, setDirty] = useState(false);
   const localMutations = useRef(new Map<string, LocalMutation>());
