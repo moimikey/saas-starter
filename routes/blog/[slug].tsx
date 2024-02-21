@@ -3,7 +3,6 @@ import { defineRoute } from "$fresh/server.ts";
 import { CSS, render } from "$gfm";
 import { getPost } from "@/utils/posts.ts";
 import Head from "@/components/Head.tsx";
-import Share from "@/components/Share.tsx";
 import GitHubAvatarImg from "@/components/GitHubAvatarImg.tsx";
 import { timeAgo } from "@/utils/display.ts";
 
@@ -26,7 +25,6 @@ export default defineRoute(async (_req, ctx) => {
               moimikey
             </a>
             {publishDate && timeAgo(publishDate)}
-            {/* <Share url={ctx.url} title={post.title} /> */}
           </p>
         </div>
         <div
