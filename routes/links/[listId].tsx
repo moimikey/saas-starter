@@ -1,27 +1,29 @@
-import { Head } from "$fresh/runtime.ts";
-import { Handlers } from "$fresh/server.ts";
-import ListView from "@/islands/ListView.tsx";
-import { db, inputSchema, loadList, writeItems } from "@/services/database.ts";
-import { FeedList } from "@/shared/api.ts";
-import { redirect } from "@/utils/http.ts";
+import { Head } from '$fresh/runtime.ts';
+import { Handlers } from '$fresh/server.ts';
+import ListView from '@/islands/ListView.tsx';
+import { db, inputSchema, loadList, writeItems } from '@/services/database.ts';
+import { FeedList } from '@/shared/api.ts';
+import { redirect } from '@/utils/http.ts';
 
 export const handler: Handlers = {
   GET: async (req, ctx) => {
     const listId = ctx.params.listId;
-    const accept = req.headers.get("accept");
+    const accept = req.headers.get('accept');
     const url = new URL(req.url);
     if (!/^[A-Za-z0-9]{0,12}$/.test(listId)) {
       return redirect(`/links/public`);
     }
 
-    if (accept === "text/event-stream") {
-      const stream = db.watch([["list_updated", listId]]).getReader();
+    if (accept === 'text/event-stream') {
+      const stream = db.watch([['list_updated', listId]]).getReader();
       const body = new ReadableStream({
         async start(controller) {
           console.debug(
-            `Opened stream for list ${listId} remote ${JSON.stringify(
-              ctx.remoteAddr
-            )}`
+            `Opened stream for list ${listId} remote ${
+              JSON.stringify(
+                ctx.remoteAddr,
+              )
+            }`,
           );
           while (true) {
             try {
@@ -29,7 +31,7 @@ export const handler: Handlers = {
                 return;
               }
 
-              const data = await loadList(listId, "strong");
+              const data = await loadList(listId, 'strong');
               const chunk = `data: ${JSON.stringify(data)}\n\n`;
               controller.enqueue(new TextEncoder().encode(chunk));
             } catch (e) {
@@ -40,15 +42,17 @@ export const handler: Handlers = {
         cancel() {
           stream.cancel();
           console.debug(
-            `Closed stream for list ${listId} remote ${JSON.stringify(
-              ctx.remoteAddr
-            )}`
+            `Closed stream for list ${listId} remote ${
+              JSON.stringify(
+                ctx.remoteAddr,
+              )
+            }`,
           );
         },
       });
       return new Response(body, {
         headers: {
-          "content-type": "text/event-stream",
+          'content-type': 'text/event-stream',
         },
       });
     }
@@ -56,11 +60,11 @@ export const handler: Handlers = {
     const startTime = Date.now();
     const data = await loadList(
       listId,
-      url.searchParams.get("consistency") === "strong" ? "strong" : "eventual"
+      url.searchParams.get('consistency') === 'strong' ? 'strong' : 'eventual',
     );
     const endTime = Date.now();
     const res = await ctx.render({ data, latency: endTime - startTime });
-    res.headers.set("x-list-load-time", "" + (endTime - startTime));
+    res.headers.set('x-list-load-time', '' + (endTime - startTime));
     return res;
   },
   POST: async (req, ctx) => {
@@ -86,7 +90,7 @@ function Home({
       <Head>
         <title>Links</title>
       </Head>
-      <main class="flex-1 p-4 w-full">
+      <main class='flex-1 p-4 w-full'>
         <ListView initialData={data} latency={latency} />
       </main>
     </>
