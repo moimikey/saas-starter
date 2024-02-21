@@ -1,6 +1,6 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useState } from 'preact/hooks';
 
-const KEY = "a29507eea26f010405870c";
+const KEY = 'a29507eea26f010405870c';
 
 type IframelyProps = {
   url: string;
@@ -8,19 +8,21 @@ type IframelyProps = {
 
 export default function Iframely(props: IframelyProps) {
   const [error, setError] = useState<{ code: number; message: string } | null>(
-    null
+    null,
   );
   const [isLoaded, setIsLoaded] = useState(false);
   const [html, setHtml] = useState({
-    __html: "<div />",
+    __html: '<div />',
   });
 
   useEffect(() => {
     if (props && props.url) {
       fetch(
-        `https://cdn.iframe.ly/api/iframely?url=${encodeURIComponent(
-          props.url
-        )}&api_key=${KEY}&iframe=1&omit_script=1&ssl=1&card=small`
+        `https://cdn.iframe.ly/api/iframely?url=${
+          encodeURIComponent(
+            props.url,
+          )
+        }&api_key=${KEY}&iframe=1&omit_script=1&ssl=1&card=small`,
       )
         .then((res) => res.json())
         .then(
@@ -35,10 +37,10 @@ export default function Iframely(props: IframelyProps) {
           (error) => {
             setIsLoaded(true);
             setError(error);
-          }
+          },
         );
     } else {
-      setError({ code: 400, message: "Provide url attribute for the element" });
+      setError({ code: 400, message: 'Provide url attribute for the element' });
     }
   }, []);
 
@@ -51,6 +53,6 @@ export default function Iframely(props: IframelyProps) {
   } else if (!isLoaded) {
     return <div>Loading…</div>;
   } else {
-    return <div className="iframely" dangerouslySetInnerHTML={html} />;
+    return <div className='iframely' dangerouslySetInnerHTML={html} />;
   }
 }
