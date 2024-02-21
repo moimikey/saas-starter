@@ -5,6 +5,10 @@ import type { State } from '@/plugins/session.ts';
 import { defineApp } from '$fresh/server.ts';
 
 export default defineApp<State>((_, ctx) => {
+  console.log(_, ctx);
+  if (ctx.url.pathname.startsWith('/kv-')) {
+    return <ctx.Component />;
+  }
   return (
     <html lang='en'>
       <head>
@@ -15,10 +19,7 @@ export default defineApp<State>((_, ctx) => {
       <body>
         <div class='dark:bg-gray-900'>
           <div class='flex flex-col min-h-screen mx-auto max-w-7xl w-full dark:text-white'>
-            <Header
-              url={ctx.url}
-              sessionUser={ctx.state?.sessionUser}
-            />
+            <Header url={ctx.url} sessionUser={ctx.state?.sessionUser} />
             <ctx.Component />
             <Footer />
           </div>

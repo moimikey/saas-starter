@@ -25,6 +25,7 @@ import * as $dashboard_stats from './routes/dashboard/stats.tsx';
 import * as $dashboard_users from './routes/dashboard/users.tsx';
 import * as $feed from './routes/feed.ts';
 import * as $index from './routes/index.tsx';
+import * as $kv_insights_middleware from './routes/kv-insights/_middleware.ts';
 import * as $links_listId_ from './routes/links/[listId].tsx';
 import * as $links_index from './routes/links/index.tsx';
 import * as $pricing from './routes/pricing.tsx';
@@ -63,6 +64,7 @@ const manifest = {
     './routes/dashboard/users.tsx': $dashboard_users,
     './routes/feed.ts': $feed,
     './routes/index.tsx': $index,
+    './routes/kv-insights/_middleware.ts': $kv_insights_middleware,
     './routes/links/[listId].tsx': $links_listId_,
     './routes/links/index.tsx': $links_index,
     './routes/pricing.tsx': $pricing,

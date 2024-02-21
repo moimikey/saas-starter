@@ -8,6 +8,7 @@ import { FlowbitePlugin } from '$flowbite/index.ts';
 import { ga4Plugin } from 'https://deno.land/x/fresh_ga4@0.0.4/mod.ts';
 import { FreshConfig } from '$fresh/src/server/types.ts';
 import tailwindPlugin from '$fresh/plugins/tailwind.ts';
+import { kvInsightsPlugin } from 'https://deno.land/x/deno_kv_insights@v0.8.0-beta/mod.ts';
 
 export default {
   plugins: [
@@ -17,6 +18,7 @@ export default {
     sessionPlugin,
     tailwindPlugin(),
     FlowbitePlugin(),
+    kvInsightsPlugin(),
     errorHandling,
     securityHeaders,
   ],
