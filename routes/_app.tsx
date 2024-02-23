@@ -5,7 +5,6 @@ import type { State } from '@/plugins/session.ts';
 import { defineApp } from '$fresh/server.ts';
 
 export default defineApp<State>((_, ctx) => {
-  console.log(_, ctx);
   if (ctx.url.pathname.startsWith('/kv-')) {
     return <ctx.Component />;
   }

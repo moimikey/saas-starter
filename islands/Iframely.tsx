@@ -7,7 +7,9 @@ type IframelyProps = {
 };
 
 export default function Iframely(props: IframelyProps) {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<{ code: number; message: string } | null>(
+    null,
+  );
   const [isLoaded, setIsLoaded] = useState(false);
   const [html, setHtml] = useState({
     __html: '<div />',
@@ -41,10 +43,6 @@ export default function Iframely(props: IframelyProps) {
       setError({ code: 400, message: 'Provide url attribute for the element' });
     }
   }, []);
-
-  useEffect(() => {
-    window.iframely && window.iframely.load();
-  });
 
   if (error) {
     return (
