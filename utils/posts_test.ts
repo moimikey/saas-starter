@@ -15,5 +15,5 @@ Deno.test('[blog] getPost()', async () => {
 Deno.test('[blog] getPosts()', async () => {
   const posts = await getPosts();
   assert(posts);
-  assertEquals(posts.length, 2);
+  assertEquals(posts.length, 1);
 });
