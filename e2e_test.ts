@@ -30,7 +30,7 @@ import Stripe from "stripe";
 import options from "@/fresh.config.ts";
 import { _internals } from "@/plugins/kv_oauth.ts";
 
-const BASE_URI = Deno.env.get("BASE_URI") ?? `https://localhost:8000`;
+const BASE_URI = Deno.env.get("BASE_URI") ?? `http://localhost:8000`;
 
 /**
  * These tests are end-to-end tests, which follow this rule-set:
