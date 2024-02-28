@@ -30,6 +30,8 @@ import Stripe from "stripe";
 import options from "@/fresh.config.ts";
 import { _internals } from "@/plugins/kv_oauth.ts";
 
+const BASE_URI = Deno.env.get("BASE_URI") ?? `https://localhost:8000`;
+
 /**
  * These tests are end-to-end tests, which follow this rule-set:
  * 1. `Response.status` is checked first by using the `Status` enum. It's the
@@ -61,7 +63,7 @@ function assertXml(resp: Response) {
   assertInstanceOf(resp.body, ReadableStream);
   assertEquals(
     resp.headers.get("content-type"),
-    "application/atom+xml; charset=utf-8",
+    "application/atom+xml; charset=utf-8"
   );
 }
 
@@ -100,15 +102,15 @@ function setupEnv(overrides: Record<string, string | null> = {}) {
 
 Deno.test("[e2e] security headers", async () => {
   setupEnv();
-  const resp = await handler(new Request("http://localhost"));
+  const resp = await handler(new Request(`${BASE_URI}`));
 
   assertEquals(
     resp.headers.get("strict-transport-security"),
-    "max-age=63072000;",
+    "max-age=63072000;"
   );
   assertEquals(
     resp.headers.get("referrer-policy"),
-    "strict-origin-when-cross-origin",
+    "strict-origin-when-cross-origin"
   );
   assertEquals(resp.headers.get("x-content-type-options"), "nosniff");
   assertEquals(resp.headers.get("x-frame-options"), "SAMEORIGIN");
@@ -117,7 +119,7 @@ Deno.test("[e2e] security headers", async () => {
 
 Deno.test("[e2e] GET /", async () => {
   setupEnv();
-  const resp = await handler(new Request("http://localhost"));
+  const resp = await handler(new Request(`${BASE_URI}`));
 
   assertEquals(resp.status, STATUS_CODE.OK);
   assertHtml(resp);
@@ -141,7 +143,7 @@ Deno.test("[e2e] GET /callback", async (test) => {
     const handleCallbackStub = stub(
       _internals,
       "handleCallback",
-      returnsNext([Promise.resolve(handleCallbackResp)]),
+      returnsNext([Promise.resolve(handleCallbackResp)])
     );
     const githubRespBody = {
       login,
@@ -154,9 +156,9 @@ Deno.test("[e2e] GET /callback", async (test) => {
       returnsNext([
         Promise.resolve(Response.json(githubRespBody)),
         Promise.resolve(Response.json(stripeRespBody)),
-      ]),
+      ])
     );
-    const req = new Request("http://localhost/callback");
+    const req = new Request(`${BASE_URI}/callback`);
     await handler(req);
     handleCallbackStub.restore();
     fetchStub.restore();
@@ -179,7 +181,7 @@ Deno.test("[e2e] GET /callback", async (test) => {
     const handleCallbackStub = stub(
       _internals,
       "handleCallback",
-      returnsNext([Promise.resolve(handleCallbackResp)]),
+      returnsNext([Promise.resolve(handleCallbackResp)])
     );
     const githubRespBody = {
       login,
@@ -192,9 +194,9 @@ Deno.test("[e2e] GET /callback", async (test) => {
       returnsNext([
         Promise.resolve(Response.json(githubRespBody)),
         Promise.resolve(Response.json(stripeRespBody)),
-      ]),
+      ])
     );
-    const req = new Request("http://localhost/callback");
+    const req = new Request(`${BASE_URI}/callback`);
     await handler(req);
     handleCallbackStub.restore();
     fetchStub.restore();
@@ -207,7 +209,7 @@ Deno.test("[e2e] GET /callback", async (test) => {
 
 Deno.test("[e2e] GET /blog", async () => {
   setupEnv();
-  const resp = await handler(new Request("http://localhost/blog"));
+  const resp = await handler(new Request(`${BASE_URI}/blog`));
 
   assertEquals(resp.status, STATUS_CODE.OK);
   assertHtml(resp);
@@ -219,7 +221,7 @@ Deno.test("[e2e] GET /pricing", async () => {
     STRIPE_PREMIUM_PLAN_PRICE_ID: null,
   });
   const handler = await createHandler(manifest, options);
-  const resp = await handler(new Request("http://localhost/pricing"));
+  const resp = await handler(new Request(`${BASE_URI}/pricing`));
 
   assertEquals(resp.status, STATUS_CODE.NotFound);
   assertHtml(resp);
@@ -227,14 +229,14 @@ Deno.test("[e2e] GET /pricing", async () => {
 
 Deno.test("[e2e] GET /signin", async () => {
   setupEnv();
-  const resp = await handler(new Request("http://localhost/signin"));
+  const resp = await handler(new Request(`${BASE_URI}/signin`));
 
   assertRedirect(resp, "https://github.com/login/oauth/authorize");
 });
 
 Deno.test("[e2e] GET /signout", async () => {
   setupEnv();
-  const resp = await handler(new Request("http://localhost/signout"));
+  const resp = await handler(new Request(`${BASE_URI}/signout`));
 
   assertRedirect(resp, "/");
 });
@@ -255,7 +257,7 @@ Deno.test("[e2e] GET /dashboard", async (test) => {
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertRedirect(resp, "/dashboard/stats");
@@ -278,7 +280,7 @@ Deno.test("[e2e] GET /dashboard/stats", async (test) => {
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.OK);
@@ -303,7 +305,7 @@ Deno.test("[e2e] GET /dashboard/users", async (test) => {
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.OK);
@@ -314,7 +316,7 @@ Deno.test("[e2e] GET /dashboard/users", async (test) => {
 
 Deno.test("[e2e] GET /submit", async () => {
   setupEnv();
-  const resp = await handler(new Request("http://localhost/submit"));
+  const resp = await handler(new Request(`${BASE_URI}/submit`));
 
   assertEquals(resp.status, STATUS_CODE.OK);
   assertHtml(resp);
@@ -322,7 +324,7 @@ Deno.test("[e2e] GET /submit", async () => {
 
 Deno.test("[e2e] GET /feed", async () => {
   setupEnv();
-  const resp = await handler(new Request("http://localhost/feed"));
+  const resp = await handler(new Request(`${BASE_URI}/feed`));
 
   assertEquals(resp.status, STATUS_CODE.OK);
   assertXml(resp);
@@ -334,7 +336,7 @@ Deno.test("[e2e] GET /api/items", async () => {
   const item2 = randomItem();
   await createItem(item1);
   await createItem(item2);
-  const req = new Request("http://localhost/api/items");
+  const req = new Request(`${BASE_URI}/api/items`);
   const resp = await handler(req);
   const { values } = await resp.json();
 
@@ -356,7 +358,7 @@ Deno.test("[e2e] POST /submit", async (test) => {
         method: "POST",
         headers: { cookie: "site-session=" + user.sessionId },
         body,
-      }),
+      })
     );
 
     assertRedirect(resp, "/submit?error");
@@ -370,7 +372,7 @@ Deno.test("[e2e] POST /submit", async (test) => {
         method: "POST",
         headers: { cookie: "site-session=" + user.sessionId },
         body,
-      }),
+      })
     );
 
     assertRedirect(resp, "/submit?error");
@@ -385,7 +387,7 @@ Deno.test("[e2e] POST /submit", async (test) => {
         method: "POST",
         headers: { cookie: "site-session=" + user.sessionId },
         body,
-      }),
+      })
     );
 
     assertRedirect(resp, "/submit?error");
@@ -401,7 +403,7 @@ Deno.test("[e2e] POST /submit", async (test) => {
         method: "POST",
         headers: { cookie: "site-session=" + user.sessionId },
         body,
-      }),
+      })
     );
     const items = await collectValues(listItemsByUser(user.login));
 
@@ -414,7 +416,7 @@ Deno.test("[e2e] POST /submit", async (test) => {
 Deno.test("[e2e] GET /api/items/[id]", async (test) => {
   setupEnv();
   const item = randomItem();
-  const req = new Request("http://localhost/api/items/" + item.id);
+  const req = new Request(`${BASE_URI}/api/items/` + item.id);
 
   await test.step("serves not found response if item not found", async () => {
     const resp = await handler(req);
@@ -440,7 +442,7 @@ Deno.test("[e2e] GET /api/users", async () => {
   await createUser(user1);
   await createUser(user2);
 
-  const req = new Request("http://localhost/api/users");
+  const req = new Request(`${BASE_URI}/api/users`);
   const resp = await handler(req);
 
   const { values } = await resp.json();
@@ -453,7 +455,7 @@ Deno.test("[e2e] GET /api/users", async () => {
 Deno.test("[e2e] GET /api/users/[login]", async (test) => {
   setupEnv();
   const user = randomUser();
-  const req = new Request("http://localhost/api/users/" + user.login);
+  const req = new Request(`${BASE_URI}/api/users/` + user.login);
 
   await test.step("serves not found response if user not found", async () => {
     const resp = await handler(req);
@@ -520,10 +522,10 @@ Deno.test("[e2e] POST /api/vote", async (test) => {
 
   await test.step("serves not found response if the item is not found", async () => {
     const resp = await handler(
-      new Request("http://localhost/api/vote?item_id=bob-ross", {
+      new Request(`${BASE_URI}/api/vote?item_id=bob-ross`, {
         method: "POST",
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.NotFound);
@@ -538,7 +540,7 @@ Deno.test("[e2e] POST /api/vote", async (test) => {
       new Request(url, {
         method: "POST",
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.Created);
@@ -546,10 +548,10 @@ Deno.test("[e2e] POST /api/vote", async (test) => {
 
   await test.step("serves an error response if the `item_id` URL parameter is missing", async () => {
     const resp = await handler(
-      new Request("http://localhost/api/vote", {
+      new Request(`${BASE_URI}/api/vote`, {
         method: "POST",
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.BadRequest);
@@ -559,7 +561,7 @@ Deno.test("[e2e] POST /api/vote", async (test) => {
 
 function createStripeEvent(
   type: Stripe.Event.Type,
-  customer: string,
+  customer: string
 ): Promise<Stripe.Event> {
   return Promise.resolve({
     id: "123",
@@ -605,14 +607,14 @@ Deno.test("[e2e] POST /api/stripe-webhooks", async (test) => {
       new Request(url, {
         method: "POST",
         headers: { "Stripe-Signature": crypto.randomUUID() },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.InternalServerError);
     assertText(resp);
     assertEquals(
       await resp.text(),
-      "`STRIPE_WEBHOOK_SECRET` environment variable is not set",
+      "`STRIPE_WEBHOOK_SECRET` environment variable is not set"
     );
   });
 
@@ -622,7 +624,7 @@ Deno.test("[e2e] POST /api/stripe-webhooks", async (test) => {
       new Request(url, {
         method: "POST",
         headers: { "Stripe-Signature": crypto.randomUUID() },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.BadRequest);
@@ -634,14 +636,14 @@ Deno.test("[e2e] POST /api/stripe-webhooks", async (test) => {
     const constructEventAsyncStub = stub(
       stripe.webhooks,
       "constructEventAsync",
-      returnsNext([createStripeEvent("customer.subscription.created", "x")]),
+      returnsNext([createStripeEvent("customer.subscription.created", "x")])
     );
 
     const resp = await handler(
       new Request(url, {
         method: "POST",
         headers: { "Stripe-Signature": crypto.randomUUID() },
-      }),
+      })
     );
 
     constructEventAsyncStub.restore();
@@ -661,16 +663,16 @@ Deno.test("[e2e] POST /api/stripe-webhooks", async (test) => {
       returnsNext([
         createStripeEvent(
           "customer.subscription.created",
-          user.stripeCustomerId!,
+          user.stripeCustomerId!
         ),
-      ]),
+      ])
     );
 
     const resp = await handler(
       new Request(url, {
         method: "POST",
         headers: { "Stripe-Signature": crypto.randomUUID() },
-      }),
+      })
     );
 
     constructEventAsyncStub.restore();
@@ -683,14 +685,14 @@ Deno.test("[e2e] POST /api/stripe-webhooks", async (test) => {
     const constructEventAsyncStub = stub(
       stripe.webhooks,
       "constructEventAsync",
-      returnsNext([createStripeEvent("customer.subscription.deleted", "x")]),
+      returnsNext([createStripeEvent("customer.subscription.deleted", "x")])
     );
 
     const resp = await handler(
       new Request(url, {
         method: "POST",
         headers: { "Stripe-Signature": crypto.randomUUID() },
-      }),
+      })
     );
 
     constructEventAsyncStub.restore();
@@ -710,16 +712,16 @@ Deno.test("[e2e] POST /api/stripe-webhooks", async (test) => {
       returnsNext([
         createStripeEvent(
           "customer.subscription.deleted",
-          user.stripeCustomerId!,
+          user.stripeCustomerId!
         ),
-      ]),
+      ])
     );
 
     const resp = await handler(
       new Request(url, {
         method: "POST",
         headers: { "Stripe-Signature": crypto.randomUUID() },
-      }),
+      })
     );
 
     constructEventAsyncStub.restore();
@@ -732,14 +734,14 @@ Deno.test("[e2e] POST /api/stripe-webhooks", async (test) => {
     const constructEventAsyncStub = stub(
       stripe.webhooks,
       "constructEventAsync",
-      returnsNext([createStripeEvent("account.application.authorized", "x")]),
+      returnsNext([createStripeEvent("account.application.authorized", "x")])
     );
 
     const resp = await handler(
       new Request(url, {
         method: "POST",
         headers: { "Stripe-Signature": crypto.randomUUID() },
-      }),
+      })
     );
 
     constructEventAsyncStub.restore();
@@ -767,7 +769,7 @@ Deno.test("[e2e] GET /account", async (test) => {
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.OK);
@@ -782,7 +784,7 @@ Deno.test("[e2e] GET /account", async (test) => {
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.OK);
@@ -807,7 +809,7 @@ Deno.test("[e2e] GET /account/manage", async (test) => {
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.NotFound);
@@ -824,13 +826,13 @@ Deno.test("[e2e] GET /account/manage", async (test) => {
     const sessionsCreateStub = stub(
       stripe.billingPortal.sessions,
       "create",
-      resolvesNext([session]),
+      resolvesNext([session])
     );
 
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     sessionsCreateStub.restore();
@@ -858,7 +860,7 @@ Deno.test("[e2e] GET /account/upgrade", async (test) => {
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.InternalServerError);
@@ -871,7 +873,7 @@ Deno.test("[e2e] GET /account/upgrade", async (test) => {
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     assertEquals(resp.status, STATUS_CODE.NotFound);
@@ -885,13 +887,13 @@ Deno.test("[e2e] GET /account/upgrade", async (test) => {
     const sessionsCreateStub = stub(
       stripe.checkout.sessions,
       "create",
-      resolvesNext([session]),
+      resolvesNext([session])
     );
 
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     sessionsCreateStub.restore();
@@ -910,13 +912,13 @@ Deno.test("[e2e] GET /account/upgrade", async (test) => {
     const sessionsCreateStub = stub(
       stripe.checkout.sessions,
       "create",
-      resolvesNext([session]),
+      resolvesNext([session])
     );
 
     const resp = await handler(
       new Request(url, {
         headers: { cookie: "site-session=" + user.sessionId },
-      }),
+      })
     );
 
     sessionsCreateStub.restore();
@@ -942,9 +944,9 @@ Deno.test("[e2e] GET /api/me/votes", async () => {
     itemId: item2.id,
   });
   const resp = await handler(
-    new Request("http://localhost/api/me/votes", {
+    new Request(`${BASE_URI}/api/me/votes`, {
       headers: { cookie: "site-session=" + user.sessionId },
-    }),
+    })
   );
   const body = await resp.json();
 
@@ -958,7 +960,7 @@ Deno.test("[e2e] GET /api/me/votes", async () => {
 
 Deno.test("[e2e] GET /welcome", async () => {
   setupEnv({ GITHUB_CLIENT_ID: null });
-  const req = new Request("http://localhost/");
+  const req = new Request(`${BASE_URI}/welcome`);
   const resp = await handler(req);
 
   assertRedirect(resp, "/welcome");
