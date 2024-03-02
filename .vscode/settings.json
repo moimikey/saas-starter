@@ -1,5 +1,6 @@
 {
   "css.customData": [".vscode/tailwind.json"],
+  "deno.cacheOnSave": true,
   "deno.codeLens.implementations": true,
   "deno.codeLens.references": true,
   "deno.codeLens.referencesAllFunctions": true,
@@ -8,10 +9,24 @@
   "deno.defaultTaskCommand": "run",
   "deno.enable": true,
   "deno.lint": true,
-  "deno.unstable": false,
+  "deno.unstable": true,
   "editor.defaultFormatter": "denoland.vscode-deno",
+  "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "[yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.organizeImports": "always"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "markdown.editor.pasteUrlAsFormattedLink.enabled": "always",
+  "css.format.enable": true,
+  "less.format.enable": false,
+  "scss.format.enable": false,
+  "json.format.keepLines": true,
+  "css.format.spaceAroundSelectorSeparator": true,
+  "less.format.newlineBetweenRules": false,
+  "less.format.newlineBetweenSelectors": false,
+  "less.format.preserveNewLines": false
 }

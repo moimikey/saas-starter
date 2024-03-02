@@ -1,7 +1,8 @@
 {
   "recommendations": [
+    "austenc.tailwind-docs",
     "bradlc.vscode-tailwindcss",
-    "heybourn.headwind",
-    "austenc.tailwind-docs"
+    "denoland.vscode-deno",
+    "heybourn.headwind"
   ]
 }
