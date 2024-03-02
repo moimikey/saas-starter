@@ -207,7 +207,7 @@ function ListItem({
           <div class='flex flex-col w-full font-mono'>
             <IFramely url={String(item.url || item.text)} />
             <p class='text-xs opacity-50 leading-loose'>
-              {new Date(item.createdAt).toISOString()}
+              {new Date(item.createdAt).toISOString()} | **updated on {new Date(item.updatedAt).toISOString()}**
             </p>
           </div>
           <button
