@@ -30,6 +30,7 @@ import * as $links_listId_ from './routes/links/[listId].tsx';
 import * as $links_index from './routes/links/index.tsx';
 import * as $pricing from './routes/pricing.tsx';
 import * as $submit from './routes/submit.tsx';
+import * as $terms_and_conditions_index from './routes/terms-and-conditions/index.tsx';
 import * as $users_login_ from './routes/users/[login].tsx';
 import * as $welcome from './routes/welcome.tsx';
 import * as $Chart from './islands/Chart.tsx';
@@ -69,6 +70,7 @@ const manifest = {
     './routes/links/index.tsx': $links_index,
     './routes/pricing.tsx': $pricing,
     './routes/submit.tsx': $submit,
+    './routes/terms-and-conditions/index.tsx': $terms_and_conditions_index,
     './routes/users/[login].tsx': $users_login_,
     './routes/welcome.tsx': $welcome,
   },

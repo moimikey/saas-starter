@@ -1,17 +1,23 @@
 import { Head } from '$fresh/runtime.ts';
-import { Handlers } from '$fresh/server.ts';
+import { FreshContext, Handlers } from '$fresh/server.ts';
 import ListView from '@/islands/ListView.tsx';
+import { SignedInState } from '@/plugins/session.ts';
 import { db, inputSchema, loadList, writeItems } from '@/services/database.ts';
 import { FeedList } from '@/shared/api.ts';
 import { redirect } from '@/utils/http.ts';
 
-export const handler: Handlers = {
-  GET: async (req, ctx) => {
+export const handler: Handlers<undefined, SignedInState> = {
+  GET: async (req, ctx: FreshContext<SignedInState>) => {
     const listId = ctx.params.listId;
     const accept = req.headers.get('accept');
     const url = new URL(req.url);
-    if (!/^[A-Za-z0-9]{0,12}$/.test(listId)) {
-      return redirect(`/links/public`);
+    const sessionUser = ctx.state.sessionUser;
+    const isSignedIn = sessionUser !== undefined;
+
+    if (isSignedIn) {
+      if (listId !== sessionUser.login && !sessionUser.isSuperadmin) {
+        return redirect(`/links/${sessionUser.login}`);
+      }
     }
 
     if (accept === 'text/event-stream') {
@@ -70,11 +76,6 @@ export const handler: Handlers = {
   POST: async (req, ctx) => {
     const listId = ctx.params.listId;
     const body = inputSchema.parse(await req.json());
-
-    if (!/[A-Za-z0-9]{0,8}/.test(listId)) {
-      return redirect(`/links/public`);
-    }
-
     await writeItems(listId, body);
     return Response.json({ ok: true });
   },
@@ -90,8 +91,14 @@ function Home({
       <Head>
         <title>Links</title>
       </Head>
-      <main class='flex-1 p-4 w-full'>
-        <ListView initialData={data} latency={latency} />
+      <main class='mx-auto my-0 max-w-5xl w-full flex flex-col justify-center p-0'>
+        <div class='mb-8 text-center'>
+          <h1 class='heading-styles'>Links</h1>
+          <p class='text-gray-500'>Expand URLs</p>
+        </div>
+        <div class='flex flex-col md:flex-row gap-4'>
+          <ListView initialData={data} latency={latency} />
+        </div>
       </main>
     </>
   );

@@ -41,12 +41,8 @@ Deno.test('[http] fetchValues()', async () => {
   };
   const resp2Cursor = crypto.randomUUID();
   const resp2 = Promise.resolve(Response.json(resp2Body));
-  const fetchStub = stub(
-    globalThis,
-    'fetch',
-    returnsNext([resp1, resp2]),
-  );
-  const endpoint = 'http://localhost';
+  const fetchStub = stub(globalThis, 'fetch', returnsNext([resp1, resp2]));
+  const endpoint = Deno.env.get('BASE_URI') ?? `http://localhost`;
   await assertRejects(
     async () => await fetchValues(endpoint, ''),
     Error,

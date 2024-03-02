@@ -1,9 +1,9 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
 import { SITE_NAME } from '@/utils/constants.ts';
-import { isStripeEnabled } from '@/utils/stripe.ts';
-import IconX from 'tabler_icons_tsx/x.tsx';
-import IconMenu from 'tabler_icons_tsx/menu-2.tsx';
 import { User } from '@/utils/db.ts';
+import { isStripeEnabled } from '@/utils/stripe.ts';
+import IconMenu from 'tabler_icons_tsx/menu-2.tsx';
+import IconX from 'tabler_icons_tsx/x.tsx';
 
 export interface HeaderProps {
   /** Currently signed-in user */
@@ -68,7 +68,7 @@ export default function Header(props: HeaderProps) {
         </a>
         <a
           href={props.sessionUser ? `/links/${props.sessionUser.login}` : '/links/public'}
-          class='link-styles data-[ancestor]:!text-primary data-[ancestor]:dark:!text-white nav-item'
+          class='link-styles data-[current]:!text-primary data-[current]:dark:!text-white nav-item'
         >
           Links
         </a>

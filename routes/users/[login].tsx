@@ -49,6 +49,14 @@ function UserProfile(props: UserProfileProps) {
             <IconShield class='w-6' />
           </span>
         )}
+        <span
+          aria-label={`${props.login} is an Admin for this organization`}
+          title={`${props.login} is an Admin for this organization`}
+        >
+          <a className='link-styles' href={`/links/${props.login}`}>
+            {props.login}'s Links
+          </a>
+        </span>
       </div>
       <div class='flex gap-x-2 px-4 mt-4 items-center'>
         <a
