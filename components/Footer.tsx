@@ -1,6 +1,5 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
 import { SITE_NAME } from '@/utils/constants.ts';
-import IconBrandDiscord from 'tabler_icons_tsx/brand-discord.tsx';
 import IconBrandGithub from 'tabler_icons_tsx/brand-github.tsx';
 import IconRss from 'tabler_icons_tsx/rss.tsx';
 
@@ -60,6 +59,12 @@ export default function Footer() {
         >
           Blog
         </a>
+        <a
+          href='/terms-and-conditions'
+          class='link-styles data-[current]:!text-black data-[current]:dark:!text-white'
+        >
+          Terms &amp; Conditions
+        </a>
         <a href='/feed' aria-label='Deno Hunt RSS Feed' class='link-styles'>
           <IconRss class='h-6 w-6' />
         </a>
@@ -78,3 +83,19 @@ export default function Footer() {
     </footer>
   );
 }
+
+// 1. **Contact Information:**
+//    - 420 Bytes
+//    - Address: [Your Physical Address]
+//    - Email: [Your Email Address]
+//    - Phone: [Your Phone Number]
+
+// 2. **Copyright Notice:**
+//    - Copyright © [Year] 420 Bytes. All rights reserved.
+
+// 3. **Links:**
+//    - [Terms and Conditions]
+//    - [Privacy Policy]
+
+// 4. **Social Media Icons (if applicable):**
+//    - [Insert links to your social media profiles]
