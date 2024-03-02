@@ -1,9 +1,9 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
-import Chart from '@/islands/Chart.tsx';
+import { Partial } from '$fresh/runtime.ts';
+import { defineRoute } from '$fresh/server.ts';
 import Head from '@/components/Head.tsx';
 import TabsBar from '@/components/TabsBar.tsx';
-import { defineRoute } from '$fresh/server.ts';
-import { Partial } from '$fresh/runtime.ts';
+import Chart from '@/islands/Chart.tsx';
 
 function randomNumbers(length: number) {
   return Array.from({ length }, () => Math.floor(Math.random() * 1000));
@@ -45,50 +45,55 @@ export default defineRoute((_req, ctx) => {
   return (
     <>
       <Head title='Dashboard' href={ctx.url.href} />
-      <main class='flex-1 p-4 flex flex-col f-client-nav'>
-        <h1 class='heading-with-margin-styles'>Dashboard</h1>
-        <TabsBar
-          links={[{
-            path: '/dashboard/stats',
-            innerText: 'Stats',
-          }, {
-            path: '/dashboard/users',
-            innerText: 'Users',
-          }]}
-          currentPath={ctx.url.pathname}
-        />
-        <Partial name='stats'>
-          <div class='flex-1 relative'>
-            <Chart
-              type='line'
-              options={{
-                maintainAspectRatio: false,
-                interaction: {
-                  intersect: false,
-                  mode: 'index',
-                },
-                scales: {
-                  x: {
-                    grid: { display: false },
+      <main class='mx-auto my-0 max-w-5xl w-full flex flex-col justify-center p-0'>
+        <div class='mb-8 text-center'>
+          <h1 class='heading-styles'>Dashboard</h1>
+          <p class='text-gray-500'>Community Stats</p>
+        </div>
+        <div class='flex flex-col md:flex-col gap-4'>
+          <TabsBar
+            links={[{
+              path: '/dashboard/stats',
+              innerText: 'Stats',
+            }, {
+              path: '/dashboard/users',
+              innerText: 'Users',
+            }]}
+            currentPath={ctx.url.pathname}
+          />
+          <Partial name='stats'>
+            <div class='flex-1 relative'>
+              <Chart
+                type='line'
+                options={{
+                  maintainAspectRatio: false,
+                  interaction: {
+                    intersect: false,
+                    mode: 'index',
                   },
-                  y: {
-                    beginAtZero: true,
-                    grid: { display: false },
-                    ticks: { precision: 0 },
+                  scales: {
+                    x: {
+                      grid: { display: false },
+                    },
+                    y: {
+                      beginAtZero: true,
+                      grid: { display: false },
+                      ticks: { precision: 0 },
+                    },
                   },
-                },
-              }}
-              data={{
-                labels,
-                datasets: datasets.map((dataset) => ({
-                  ...dataset,
-                  pointRadius: 0,
-                  cubicInterpolationMode: 'monotone',
-                })),
-              }}
-            />
-          </div>
-        </Partial>
+                }}
+                data={{
+                  labels,
+                  datasets: datasets.map((dataset) => ({
+                    ...dataset,
+                    pointRadius: 0,
+                    cubicInterpolationMode: 'monotone',
+                  })),
+                }}
+              />
+            </div>
+          </Partial>
+        </div>
       </main>
     </>
   );

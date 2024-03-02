@@ -1,9 +1,9 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
+import { Partial } from '$fresh/runtime.ts';
+import { defineRoute } from '$fresh/server.ts';
 import Head from '@/components/Head.tsx';
 import TabsBar from '@/components/TabsBar.tsx';
 import UsersTable from '@/islands/UsersTable.tsx';
-import { defineRoute } from '$fresh/server.ts';
-import { Partial } from '$fresh/runtime.ts';
 
 export default defineRoute((_req, ctx) => {
   const endpoint = '/api/users';
@@ -18,21 +18,26 @@ export default defineRoute((_req, ctx) => {
           rel='preload'
         />
       </Head>
-      <main class='flex-1 p-4 f-client-nav'>
-        <h1 class='heading-with-margin-styles'>Dashboard</h1>
-        <TabsBar
-          links={[{
-            path: '/dashboard/stats',
-            innerText: 'Stats',
-          }, {
-            path: '/dashboard/users',
-            innerText: 'Users',
-          }]}
-          currentPath={ctx.url.pathname}
-        />
-        <Partial name='users'>
-          <UsersTable endpoint={endpoint} />
-        </Partial>
+      <main class='mx-auto my-0 max-w-5xl w-full flex flex-col justify-center p-0'>
+        <div class='mb-8 text-center'>
+          <h1 class='heading-styles'>Dashboard</h1>
+          <p class='text-gray-500'>Users</p>
+        </div>
+        <div class='flex flex-col md:flex-col gap-4'>
+          <TabsBar
+            links={[{
+              path: '/dashboard/stats',
+              innerText: 'Stats',
+            }, {
+              path: '/dashboard/users',
+              innerText: 'Users',
+            }]}
+            currentPath={ctx.url.pathname}
+          />
+          <Partial name='users'>
+            <UsersTable endpoint={endpoint} />
+          </Partial>
+        </div>
       </main>
     </>
   );

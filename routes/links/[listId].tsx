@@ -91,9 +91,14 @@ function Home({
       <Head>
         <title>Links</title>
       </Head>
-      <main class='flex-1 p-4 w-full'>
-        <h1 class='heading-with-margin-styles'>Links</h1>
-        <ListView initialData={data} latency={latency} />
+      <main class='mx-auto my-0 max-w-5xl w-full flex flex-col justify-center p-0'>
+        <div class='mb-8 text-center'>
+          <h1 class='heading-styles'>Links</h1>
+          <p class='text-gray-500'>Expand URLs</p>
+        </div>
+        <div class='flex flex-col md:flex-row gap-4'>
+          <ListView initialData={data} latency={latency} />
+        </div>
       </main>
     </>
   );

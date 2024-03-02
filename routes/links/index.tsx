@@ -1,8 +1,8 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
+import { Partial } from '$fresh/runtime.ts';
+import { defineRoute } from '$fresh/server.ts';
 import Head from '@/components/Head.tsx';
 import UsersTable from '@/islands/UsersTable.tsx';
-import { defineRoute } from '$fresh/server.ts';
-import { Partial } from '$fresh/runtime.ts';
 
 export default defineRoute((_req, ctx) => {
   const endpoint = '/api/users';

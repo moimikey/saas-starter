@@ -1,9 +1,9 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
 import { defineRoute } from '$fresh/server.ts';
-import { getPosts, type Post } from '@/utils/posts.ts';
+import GitHubAvatarImg from '@/components/GitHubAvatarImg.tsx';
 import Head from '@/components/Head.tsx';
 import { timeAgo } from '@/utils/display.ts';
-import GitHubAvatarImg from '@/components/GitHubAvatarImg.tsx';
+import { getPosts, type Post } from '@/utils/posts.ts';
 
 function PostCard(props: Post) {
   const publishDate = !props.publishedAt ? null : new Date(props.publishedAt);
@@ -31,7 +31,7 @@ export default defineRoute(async (_req, ctx) => {
     <>
       <Head title='Blog' href={ctx.url.href} />
       <main class='p-4 flex-1'>
-        <h1>Blog</h1>
+        <h1 class='heading-styles'>Blog</h1>
         <div class='divide-y'>
           {posts.map((post) => <PostCard {...post} />)}
         </div>

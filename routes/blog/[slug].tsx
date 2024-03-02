@@ -3,13 +3,13 @@ import { defineRoute } from '$fresh/server.ts';
 import { CSS, render } from '$gfm';
 import GitHubAvatarImg from '@/components/GitHubAvatarImg.tsx';
 import Head from '@/components/Head.tsx';
-import { timeAgo } from '@/utils/display.ts';
 import { getPost } from '@/utils/posts.ts';
 
 export default defineRoute(async (_req, ctx) => {
   const post = await getPost(ctx.params.slug);
   if (post === null) return await ctx.renderNotFound();
-  const publishDate = !post.publishedAt ? null : new Date(post.publishedAt);
+  const publishDate = !post.publishedAt ? null : new Date(post.publishedAt) ?? null;
+  const updatedAt = !post.updatedAt ? null : new Date(post.updatedAt) ?? null;
 
   return (
     <>
@@ -17,14 +17,16 @@ export default defineRoute(async (_req, ctx) => {
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
       </Head>
       <main class='p-4 flex-1'>
-        <h1 class='text-4xl font-bold'>{post.title}</h1>
+        <h1 class='text-4xl font-bold text-primary'>{post.title}</h1>
         <div class='grid gap-2 grid-flow-col auto-cols-[minmax(0,_max-content)]'>
           <p class='text-gray-500 self-center'>
+            Posted By {''}
             <GitHubAvatarImg login='moimikey' size={24} class='mr-2' />
             <a class='hover:underline' href={`/users/moimikey`}>
               moimikey
-            </a>
-            {publishDate && timeAgo(publishDate)}
+            </a>{' '}
+            {publishDate && `| ${publishDate}`}
+            {updatedAt && `| ${updatedAt}`}
           </p>
         </div>
         <div
