@@ -1,7 +1,7 @@
-import axios from 'axios-web';
-import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import IFramely from '@/islands/Iframely.tsx';
 import type { FeedList, FeedListItem } from '@/shared/api.ts';
+import axios from 'axios-web';
+import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
 interface LocalMutation {
   text: string | null;
@@ -176,7 +176,7 @@ function ListItem({
   }, [item]);
 
   return (
-    <div class='flex my-2 items-center' {...{ 'data-item-id': item.id! }}>
+    <div class='flex items-center' {...{ 'data-item-id': item.id! }}>
       {editing && (
         <>
           <input

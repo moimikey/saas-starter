@@ -1,10 +1,10 @@
 import { Head } from '$fresh/runtime.ts';
 import { FreshContext, Handlers } from '$fresh/server.ts';
 import ListView from '@/islands/ListView.tsx';
+import { SignedInState } from '@/plugins/session.ts';
 import { db, inputSchema, loadList, writeItems } from '@/services/database.ts';
 import { FeedList } from '@/shared/api.ts';
 import { redirect } from '@/utils/http.ts';
-import { SignedInState } from '@/plugins/session.ts';
 
 export const handler: Handlers<undefined, SignedInState> = {
   GET: async (req, ctx: FreshContext<SignedInState>) => {
@@ -92,6 +92,7 @@ function Home({
         <title>Links</title>
       </Head>
       <main class='flex-1 p-4 w-full'>
+        <h1 class='heading-with-margin-styles'>Links</h1>
         <ListView initialData={data} latency={latency} />
       </main>
     </>

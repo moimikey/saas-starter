@@ -1,10 +1,10 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
 import { defineRoute } from '$fresh/server.ts';
 import { CSS, render } from '$gfm';
-import { getPost } from '@/utils/posts.ts';
-import Head from '@/components/Head.tsx';
 import GitHubAvatarImg from '@/components/GitHubAvatarImg.tsx';
+import Head from '@/components/Head.tsx';
 import { timeAgo } from '@/utils/display.ts';
+import { getPost } from '@/utils/posts.ts';
 
 export default defineRoute(async (_req, ctx) => {
   const post = await getPost(ctx.params.slug);
@@ -29,9 +29,7 @@ export default defineRoute(async (_req, ctx) => {
         </div>
         <div
           class='mt-8 markdown-body !bg-transparent !dark:text-white'
-          data-color-mode='auto'
-          data-light-theme='light'
-          data-dark-theme='dark'
+          data-color-mode='light'
           dangerouslySetInnerHTML={{ __html: render(post.content) }}
         />
       </main>
