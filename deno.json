@@ -9,6 +9,7 @@
     "db:reset": "deno run --allow-read --allow-env --unstable-temporal --unstable-net --unstable-kv --unstable-http --unstable-fs --unstable-cron --unstable-broadcast-channel tasks/db_reset.ts",
     "start": "deno run --unstable-temporal --unstable-net --unstable-kv --unstable-http --unstable-fs --unstable-cron --unstable-broadcast-channel -A --watch=static/,routes/ --env dev.ts",
     "test": "DENO_KV_PATH=:memory: deno test -A --parallel --unstable-temporal --unstable-net --unstable-kv --unstable-http --unstable-fs --unstable-cron --unstable-broadcast-channel --coverage",
+    "test:watch": "DENO_KV_PATH=:memory: deno test -A --watch --parallel --unstable-temporal --unstable-net --unstable-kv --unstable-http --unstable-fs --unstable-cron --unstable-broadcast-channel",
     "check:license": "deno run --allow-read --allow-write tasks/check_license.ts",
     "check:types": "deno check **/*.ts && deno check **/*.tsx",
     "ok": "deno fmt --check && deno lint && deno task check:types && deno task test",
@@ -39,7 +40,9 @@
     "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.4/tsx/",
     "fresh_charts/": "https://deno.land/x/fresh_charts@0.3.1/",
     "axios-web": "https://esm.sh/axios@1.3.2?target=es2022",
-    "zod": "https://esm.sh/zod@v3.22.4"
+    "zod": "https://esm.sh/zod@v3.22.4",
+    "open-props": "https://esm.sh/open-props@1.6.20",
+    "open-props/": "https://esm.sh/open-props@1.6.20/"
   },
   "exclude": ["cov/", "_fresh/", "**/_fresh/*"],
   "lint": {
