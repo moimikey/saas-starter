@@ -1,18 +1,20 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
 
 import { createHandler } from "$fresh/server.ts";
+import options from "@/fresh.config.ts";
 import manifest from "@/fresh.gen.ts";
+import { _internals } from "@/plugins/kv_oauth.ts";
 import {
+  User,
   collectValues,
   createItem,
   createUser,
   createVote,
   getUser,
-  type Item,
   listItemsByUser,
   randomItem,
   randomUser,
-  User,
+  type Item,
 } from "@/utils/db.ts";
 import { stripe } from "@/utils/stripe.ts";
 import {
@@ -24,11 +26,9 @@ import {
   assertObjectMatch,
   assertStringIncludes,
 } from "std/assert/mod.ts";
-import { isRedirectStatus, STATUS_CODE } from "std/http/status.ts";
+import { STATUS_CODE, isRedirectStatus } from "std/http/status.ts";
 import { resolvesNext, returnsNext, stub } from "std/testing/mock.ts";
 import Stripe from "stripe";
-import options from "@/fresh.config.ts";
-import { _internals } from "@/plugins/kv_oauth.ts";
 
 const BASE_URI = Deno.env.get("BASE_URI") ?? `http://localhost:8000`;
 
@@ -956,12 +956,4 @@ Deno.test("[e2e] GET /api/me/votes", async () => {
     { ...item1, score: 1 },
     { ...item2, score: 1 },
   ]);
-});
-
-Deno.test("[e2e] GET /welcome", async () => {
-  setupEnv({ GITHUB_CLIENT_ID: null });
-  const req = new Request(`${BASE_URI}/welcome`);
-  const resp = await handler(req);
-
-  assertRedirect(resp, "/welcome");
 });

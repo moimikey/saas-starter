@@ -14,6 +14,7 @@ export interface Post {
   publishedAt: Date;
   content: string;
   summary: string;
+  updatedAt?: Date;
 }
 
 /**
