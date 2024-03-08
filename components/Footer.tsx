@@ -51,9 +51,10 @@ function MadeWithFreshBadge() {
 export default function Footer() {
   return (
     <footer class='p-4 sm:p-6 bg-primary dark:bg-gray-800'>
+      <hr class='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700' />
       <div class='mx-auto max-w-screen-xl'>
         <div class='md:flex md:justify-between'>
-          <div class='grid gap-6 grid-cols-2 sm:gap-4 md:grid-cols-2'>
+          <div class='grid gap-6 grid-cols-3 md:grid-cols-1'>
             <div class='content-start grid gap-2 align-start'>
               <h2 class='text-sm font-semibold text-gray-900 uppercase dark:text-white'>420 Bytes, LLC.</h2>
               <ul class='text-sm text-gray-600 grid gap-1 dark:text-gray-400'>
