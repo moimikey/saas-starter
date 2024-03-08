@@ -9,31 +9,50 @@ import { isStripeEnabled } from '@/utils/stripe.ts';
 export default defineRoute<SignedInState>((_req, ctx) => {
   const { sessionUser } = ctx.state;
   const action = sessionUser.isSubscribed ? 'Manage' : 'Upgrade';
-  const decorations = new Set();
+  const decorations = new Set<string>();
   sessionUser.isAdmin && decorations.add('admin');
   sessionUser.isSuperadmin && decorations.add('superadmin');
   sessionUser.isSubscribed && decorations.add('subscriber');
-  const decorationString = Array.from(decorations).join(', ').trim();
+
+  const decorationString = Array.from(decorations).map((decoration) => (
+    <span
+      class='bg-primary hover:bg-primary-200 text-white text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-primary border border-primary inline-flex items-center justify-center'
+      key={decoration}
+    >
+      {decoration}
+    </span>
+  ));
+
   return (
     <>
       <Head title='Account' href={ctx.url.href} />
-      <main class='mx-auto my-0 max-w-5xl w-full flex flex-col justify-center p-0'>
+      <main class='flex flex-col justify-center w-full max-w-5xl p-0 mx-auto my-0'>
         <div class='mb-8 text-center'>
           <h1 class='heading-styles'>Account</h1>
           <p class='text-gray-500'>My Profile</p>
         </div>
         <div class='flex flex-col md:flex-row columns-1 gap-4'>
-          <GitHubAvatarImg login={sessionUser.login} size={240} class='mx-auto' />
-          <ul class='space-y-4'>
+          <div class='flex flex-col items-center gap-4'>
+            <GitHubAvatarImg login={sessionUser.login} size={200} class='mx-auto' />
+            <a href={`/users/${sessionUser.login}`} class='link-styles'>
+              Go to my profile &#8250;
+            </a>
+            <div class='flex space-y-4'>
+              <a
+                href='/signout?success_url=/'
+                class='block text-center button-styles'
+              >
+                Sign out
+              </a>
+            </div>
+          </div>
+          <ul class='flex flex-col m-4 gap-4'>
             <li>
               <strong>Username</strong>
               <p class='flex flex-wrap justify-between'>
                 <span>
-                  {sessionUser.login} ({decorationString})
+                  {sessionUser.login} {decorationString}
                 </span>
-                <a href={`/users/${sessionUser.login}`} class='link-styles'>
-                  Go to my profile &#8250;
-                </a>
               </p>
             </li>
             <li>
@@ -43,7 +62,7 @@ export default defineRoute<SignedInState>((_req, ctx) => {
                   {sessionUser.isSubscribed
                     ? (
                       <>
-                        Premium <PremiumBadge class='w-5 h-5 inline' />
+                        Premium <PremiumBadge class='inline w-5 h-5' />
                       </>
                     )
                     : (
@@ -63,14 +82,6 @@ export default defineRoute<SignedInState>((_req, ctx) => {
               </p>
             </li>
           </ul>
-        </div>
-        <div>
-          <a
-            href='/signout?success_url=/'
-            class='button-styles block text-center'
-          >
-            Sign out
-          </a>
         </div>
       </main>
     </>

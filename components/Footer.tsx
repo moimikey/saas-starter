@@ -50,36 +50,66 @@ function MadeWithFreshBadge() {
 
 export default function Footer() {
   return (
-    <footer class='site-bar-styles flex-col md:flex-row mt-8'>
-      <p>© {SITE_NAME}</p>
-      <nav class='nav-styles'>
-        <a
-          href='/blog'
-          class='link-styles data-[current]:!text-black data-[current]:dark:!text-white'
-        >
-          Blog
-        </a>
-        <a
-          href='/terms-and-conditions'
-          class='link-styles data-[current]:!text-black data-[current]:dark:!text-white'
-        >
-          Terms &amp; Conditions
-        </a>
-        <a href='/feed' aria-label='Deno Hunt RSS Feed' class='link-styles'>
-          <IconRss class='h-6 w-6' />
-        </a>
-        <a
-          href='https://github.com/420bytes'
-          target='_blank'
-          aria-label='420 Bytes on GitHub'
-          class='link-styles'
-        >
-          <IconBrandGithub class='h-6 w-6' />
-        </a>
-        <a href='https://fresh.deno.dev'>
-          <MadeWithFreshBadge />
-        </a>
-      </nav>
+    <footer class='p-4 sm:p-6 bg-primary dark:bg-gray-800'>
+      <div class='mx-auto max-w-screen-xl'>
+        <div class='md:flex md:justify-between'>
+          <div class='grid gap-6 grid-cols-2 sm:gap-4 md:grid-cols-2'>
+            <div class='content-start grid gap-2 align-start'>
+              <h2 class='text-sm font-semibold text-gray-900 uppercase dark:text-white'>420 Bytes, LLC.</h2>
+              <ul class='text-sm text-gray-600 grid gap-1 dark:text-gray-400'>
+                <li>
+                  <a href='/links' class='hover:underline'>Links</a>
+                </li>
+                <li>
+                  <a href='#' class='hover:underline'>Coding Queerly</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class='content-start grid gap-2 align-start'>
+              <h2 class='text-sm font-semibold text-gray-900 uppercase dark:text-white'>Connect</h2>
+              <ul class='text-sm text-gray-600 grid gap-1 dark:text-gray-400'>
+                <li>
+                  <a href='https://github.com/420bytes' class='hover:underline '>Github</a>
+                </li>
+                <li>
+                  <a href='/feed' class='hover:underline'>Feed</a>
+                </li>
+                <li>
+                  <a href='/blog' class='hover:underline'>Blog</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class='content-start grid gap-2 align-start'>
+              <h2 class='text-sm font-semibold text-gray-900 uppercase dark:text-white'>Legal</h2>
+              <ul class='text-sm text-gray-600 grid gap-1 dark:text-gray-400'>
+                <li>
+                  <a href='/privacy-policy' class='hover:underline'>Privacy Policy</a>
+                </li>
+                <li>
+                  <a href='/terms-and-conditions' class='hover:underline'>Terms &amp; Conditions</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class='flex items-center self-end justify-end mt-4 space-x-4'>
+            <span class='block text-sm text-gray-500 dark:text-gray-400'>
+              © 2024 <a href='https://420byt.es' class='hover:underline'>{SITE_NAME}, LLC</a>
+            </span>
+            <a href='https://github.com/420bytes' class='text-gray-500 hover:text-gray-900 dark:hover:text-white'>
+              <IconBrandGithub class='w-5 h-5' />
+            </a>
+            <a href='/feed' class='text-gray-500 hover:text-gray-900 dark:hover:text-white'>
+              <IconRss class='w-5 h-5' />
+            </a>
+            <a href='https://fresh.deno.dev'>
+              <MadeWithFreshBadge />
+            </a>
+          </div>
+        </div>
+      </div>
     </footer>
   );
 }

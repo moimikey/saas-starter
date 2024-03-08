@@ -16,10 +16,10 @@ export default defineRoute(async (_req, ctx) => {
       <Head title={post.title} href={ctx.url.href}>
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
       </Head>
-      <main class='p-4 flex-1'>
+      <main class='flex-1 p-4'>
         <h1 class='text-4xl font-bold text-primary'>{post.title}</h1>
         <div class='grid gap-2 grid-flow-col auto-cols-[minmax(0,_max-content)]'>
-          <p class='text-gray-500 self-center'>
+          <p class='self-center text-gray-500'>
             Posted By {''}
             <GitHubAvatarImg login='moimikey' size={24} class='mr-2' />
             <a class='hover:underline' href={`/users/moimikey`}>
@@ -34,6 +34,24 @@ export default defineRoute(async (_req, ctx) => {
           data-color-mode='light'
           dangerouslySetInnerHTML={{ __html: render(post.content) }}
         />
+        <script
+          src='https://giscus.app/client.js'
+          data-repo='420bytes/web-core'
+          data-repo-id='R_kgDOLLUbIw'
+          data-category='Announcements'
+          data-category-id='DIC_kwDOLLUbI84CdsJo'
+          data-mapping='url'
+          data-strict='1'
+          data-reactions-enabled='1'
+          data-emit-metadata='0'
+          data-input-position='bottom'
+          data-theme='preferred_color_scheme'
+          data-lang='en'
+          data-loading='lazy'
+          crossorigin='anonymous'
+          async
+        >
+        </script>
       </main>
     </>
   );

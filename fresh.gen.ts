@@ -29,6 +29,7 @@ import * as $kv_insights_middleware from './routes/kv-insights/_middleware.ts';
 import * as $links_listId_ from './routes/links/[listId].tsx';
 import * as $links_index from './routes/links/index.tsx';
 import * as $pricing from './routes/pricing.tsx';
+import * as $privacy_policy_index from './routes/privacy-policy/index.tsx';
 import * as $submit from './routes/submit.tsx';
 import * as $terms_and_conditions_index from './routes/terms-and-conditions/index.tsx';
 import * as $users_login_ from './routes/users/[login].tsx';
@@ -69,6 +70,7 @@ const manifest = {
     './routes/links/[listId].tsx': $links_listId_,
     './routes/links/index.tsx': $links_index,
     './routes/pricing.tsx': $pricing,
+    './routes/privacy-policy/index.tsx': $privacy_policy_index,
     './routes/submit.tsx': $submit,
     './routes/terms-and-conditions/index.tsx': $terms_and_conditions_index,
     './routes/users/[login].tsx': $users_login_,

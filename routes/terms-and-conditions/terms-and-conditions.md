@@ -1,4 +1,4 @@
-# Terms &amp; Conditions
+**Last Updated: $LAST_UPDATED_TIMESTAMP**
 
 ## <a href="#introduction">Introduction</a>
 Welcome to **420 Bytes**, a platform dedicated to providing cannabis-related and technology content. These terms and conditions constitute a legally binding agreement governing your use of the website. Please carefully read and understand these terms before proceeding.
