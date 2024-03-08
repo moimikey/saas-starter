@@ -104,24 +104,24 @@ export default function ListView(props: {
 
   return (
     <div class='w-full'>
-      <div class='flex flex-col gap-4 pb-4'>
-        <div class='flex flex-row gap-2 items-center'>
+      <div class='flex flex-col pb-4 gap-4'>
+        <div class='flex flex-row items-center gap-2'>
           <div
             class={`inline-block h-2 w-2 ${busy ? 'bg-yellow-600' : 'bg-primary'}`}
             style={{ borderRadius: '50%' }}
           >
           </div>
-          <span class='opacity-50 text-sm'>
+          <span class='text-sm opacity-50'>
             Share this page to collaborate with others.
           </span>
         </div>
         <div class='flex'>
           <input
-            class='border rounded w-full py-2 px-3 mr-4'
+            class='w-full px-3 py-2 mr-4 border rounded'
             placeholder='Paste a link to post and expand'
             ref={addTodoInput}
           />
-          <div class='rounded-lg bg-gradient-to-tr from-secondary to-primary p-px'>
+          <div class='p-px rounded-lg bg-gradient-to-tr from-secondary to-primary'>
             <button
               onClick={addTodo}
               disabled={adding}
@@ -141,7 +141,7 @@ export default function ListView(props: {
           />
         ))}
       </div>
-      <div class='opacity-50 text-sm border-t border-gray-300 py-2'>
+      <div class='py-2 text-sm border-t border-gray-300 opacity-50'>
         <p>Initial data fetched in {props.latency}ms</p>
       </div>
     </div>
@@ -180,12 +180,12 @@ function ListItem({
       {editing && (
         <>
           <input
-            class='border rounded w-full py-2 px-3 mr-4'
+            class='w-full px-3 py-2 mr-4 border rounded'
             ref={input}
             defaultValue={item.url}
           />
           <button
-            class='p-2 rounded mr-2 disabled:opacity-50'
+            class='p-2 mr-2 rounded disabled:opacity-50'
             title='Save'
             onClick={doSave}
             disabled={busy}
@@ -206,7 +206,7 @@ function ListItem({
         <>
           <div class='flex flex-col w-full font-mono'>
             <IFramely url={String(item.url || item.text)} />
-            <p class='text-xs opacity-50 leading-loose'>
+            <p class='text-xs leading-loose opacity-50'>
               {new Date(item.createdAt).toISOString()} | **updated on {new Date(item.updatedAt).toISOString()}**
             </p>
           </div>

@@ -11,11 +11,11 @@ const TD_STYLES = 'p-4';
 
 function UserTableRow(props: User) {
   return (
-    <tr class='hover:bg-gray-50 hover:dark:bg-gray-900 border-b border-gray-200'>
+    <tr class='border-b border-gray-200 hover:bg-gray-50 hover:dark:bg-gray-900'>
       <td scope='col' class={TD_STYLES}>
         <GitHubAvatarImg login={props.login} size={32} />
         <a
-          class='hover:underline ml-4 align-middle'
+          class='ml-4 align-middle hover:underline'
           href={'/users/' + props.login}
         >
           {props.login}
@@ -25,7 +25,7 @@ function UserTableRow(props: User) {
         {props.isSubscribed
           ? (
             <>
-              Premium <PremiumBadge class='w-5 h-5 inline' />
+              Premium <PremiumBadge class='inline w-5 h-5' />
             </>
           )
           : 'Basic'}
@@ -69,8 +69,8 @@ export default function UsersTable(props: UsersTableProps) {
   }, []);
 
   return (
-    <div class='w-full rounded-lg shadow border-1 border-gray-300 overflow-x-auto'>
-      <table class='table-auto border-collapse w-full'>
+    <div class='w-full overflow-x-auto border-gray-300 rounded-lg shadow border-1'>
+      <table class='w-full border-collapse table-auto'>
         <thead class='border-b border-gray-300'>
           <tr>
             <th scope='col' class={TH_STYLES}>User</th>
@@ -85,7 +85,7 @@ export default function UsersTable(props: UsersTableProps) {
       {cursorSig.value !== '' && (
         <button
           onClick={loadMoreUsers}
-          class='link-styles p-4'
+          class='p-4 link-styles'
         >
           {isLoadingSig.value ? 'Loading...' : 'Load more'}
         </button>

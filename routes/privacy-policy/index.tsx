@@ -4,7 +4,7 @@ import Head from '@/components/Head.tsx';
 import { format } from 'std/datetime/format.ts';
 
 export default defineRoute(async (_req, ctx) => {
-  const slug = 'terms-and-conditions';
+  const slug = 'privacy-policy';
   const ext = 'md';
   const pathToFile = `./routes/${slug}/${slug}.${ext}`;
   const file = await Deno.stat(pathToFile);
@@ -17,12 +17,12 @@ export default defineRoute(async (_req, ctx) => {
 
   return (
     <>
-      <Head title='Terms &amp; Conditions' href={ctx.url.href}>
+      <Head title='Privacy Policy' href={ctx.url.href}>
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
       </Head>
       <main class='flex flex-col justify-center w-full max-w-5xl p-0 mx-auto my-0'>
         <div class='mb-8 text-center'>
-          <h1 class='heading-styles'>Terms &amp; Conditions</h1>
+          <h1 class='heading-styles'>Privacy Policy</h1>
         </div>
         <div class='flex flex-col md:flex-row columns-1 gap-4'>
           <div

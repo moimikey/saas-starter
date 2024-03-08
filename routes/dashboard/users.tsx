@@ -18,7 +18,7 @@ export default defineRoute((_req, ctx) => {
           rel='preload'
         />
       </Head>
-      <main class='mx-auto my-0 max-w-5xl w-full flex flex-col justify-center p-0'>
+      <main class='flex flex-col justify-center w-full max-w-5xl p-0 mx-auto my-0'>
         <div class='mb-8 text-center'>
           <h1 class='heading-styles'>Dashboard</h1>
           <p class='text-gray-500'>Users</p>

@@ -30,9 +30,14 @@ export default defineRoute(async (_req, ctx) => {
   return (
     <>
       <Head title='Blog' href={ctx.url.href} />
-      <main class='p-4 flex-1'>
-        <h1 class='heading-styles'>Blog</h1>
-        <div class='divide-y'>
+      <main class='flex flex-col justify-center w-full max-w-5xl p-0 mx-auto my-0'>
+        <div class='mb-8 text-center'>
+          <h1 class='heading-styles'>Blog</h1>
+          <p class='text-gray-500'>
+            Tidings by <a href='/users/moimikey'>@moimikey</a>
+          </p>
+        </div>
+        <div class='flex flex-col md:flex-row columns-1 gap-4'>
           {posts.map((post) => <PostCard {...post} />)}
         </div>
       </main>

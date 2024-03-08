@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* the props */
+/* @import "open-props/style"; */
+
+/* optional imports that use the props */
+/* @import "open-props/normalize";
+@import "open-props/buttons"; */
+
+/* just light or dark themes */
+/* @import "open-props/normalize/dark";
+@import "open-props/buttons/dark";
+@import "open-props/normalize/light";
+@import "open-props/buttons/light"; */
+
+/* individual imports */
+/* @import "open-props/indigo";
+@import "open-props/easings";
+@import "open-props/animations";
+@import "open-props/sizes";
+@import "open-props/gradients"; */
+/* see PropPacks for the full list */
+
 .button-styles {
   @apply px-4 py-2 bg-primary text-white rounded-lg border border-primary transition duration-100 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-transparent hover:text-primary;
 }
@@ -26,13 +47,13 @@
   @apply text-gray-500 transition duration-100 hover:text-black hover:dark:text-white;
 }
 
-/* .active-link-styles {
+.active-link-styles {
   @apply data-[current]:!text-black data-[current]:dark:!text-white;
 }
 
 .active-ancestor-link-styles {
   @apply data-[ancestor]:!text-black data-[ancestor]:dark:!text-white;
-} */
+}
 
 .heading-styles {
   @apply text-3xl font-bold;

@@ -42,7 +42,7 @@ export default defineRoute<State>((_req, ctx) => {
   return (
     <>
       <Head title='Submit' href={ctx.url.href} />
-      <main class='flex-1 flex flex-col justify-center mx-auto w-full space-y-16 p-4 max-w-6xl'>
+      <main class='flex flex-col justify-center flex-1 w-full max-w-6xl p-4 mx-auto space-y-16'>
         <div class='text-center'>
           <h1 class='heading-styles'>
             Share your project
@@ -73,19 +73,19 @@ export default defineRoute<State>((_req, ctx) => {
             </p>
           </div>
           <form
-            class='flex-1 flex flex-col justify-center'
+            class='flex flex-col justify-center flex-1'
             method='post'
           >
             <div>
               <label
                 htmlFor='submit_title'
-                class='block text-sm font-medium leading-6 text-gray-900'
+                class='block text-sm font-medium text-gray-900 leading-6'
               >
                 Title
               </label>
               <input
                 id='submit_title'
-                class='input-styles w-full mt-2'
+                class='w-full mt-2 input-styles'
                 type='text'
                 name='title'
                 required
@@ -97,12 +97,12 @@ export default defineRoute<State>((_req, ctx) => {
             <div class='mt-4'>
               <label
                 htmlFor='submit_title'
-                class='block text-sm font-medium leading-6 text-gray-900'
+                class='block text-sm font-medium text-gray-900 leading-6'
               >
                 URL
               </label>
               <input
-                class='input-styles w-full mt-2'
+                class='w-full mt-2 input-styles'
                 type='url'
                 name='url'
                 required
@@ -111,11 +111,11 @@ export default defineRoute<State>((_req, ctx) => {
               />
             </div>
             {ctx.url.searchParams.has('error') && (
-              <div class='w-full text-red-500 mt-4'>
+              <div class='w-full mt-4 text-red-500'>
                 <IconInfo class='inline-block' /> Title and valid URL are required
               </div>
             )}
-            <div class='w-full rounded-lg bg-gradient-to-tr from-secondary to-primary p-px mt-8'>
+            <div class='w-full p-px mt-8 rounded-lg bg-gradient-to-tr from-secondary to-primary'>
               {!ctx.state.sessionUser
                 ? (
                   <a href='/signin' class={SUBMIT_STYLES}>

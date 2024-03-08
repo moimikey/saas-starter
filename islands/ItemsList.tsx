@@ -17,7 +17,7 @@ async function fetchVotedItems() {
 
 function EmptyItemsList() {
   return (
-    <div class='flex flex-col justify-center items-center gap-2 pt-16'>
+    <div class='flex flex-col items-center justify-center pt-16 gap-2'>
       <IconInfo class='w-10 h-10 text-gray-400 dark:text-gray-600' />
       <p>No items found</p>
       <a href='/submit' class='text-primary hover:underline'>
@@ -64,7 +64,7 @@ function ItemSummary(props: ItemSummaryProps) {
   const isVotedSig = useSignal(props.isVoted);
 
   return (
-    <div class='py-2 flex gap-4'>
+    <div class='flex py-2 gap-4'>
       <div
         class={`pr-2 text-center flex flex-col justify-center ${
           isVotedSig.value ? 'text-primary' : 'hover:text-primary'

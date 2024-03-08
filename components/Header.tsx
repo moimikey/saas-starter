@@ -17,14 +17,14 @@ export interface HeaderProps {
 
 export default function Header(props: HeaderProps) {
   return (
-    <header class='site-bar-styles flex-col sm:flex-row'>
+    <header class='flex-col site-bar-styles sm:flex-row'>
       <input
         type='checkbox'
         id='nav-toggle'
         class='hidden [:checked&+*>:last-child>*>:first-child]:hidden [:checked&+*>:last-child>*>:last-child]:block checked:siblings:last-child:flex'
       />
 
-      <div class='flex justify-between items-center'>
+      <div class='flex items-center justify-between'>
         <a href='/' class='shrink-0'>
           <img
             width='128'
@@ -34,7 +34,7 @@ export default function Header(props: HeaderProps) {
             class='w-[128x] h-[42px]'
           />
         </a>
-        <div class='flex gap-4 items-center'>
+        <div class='flex items-center gap-4'>
           <label
             tabIndex={0}
             class='sm:hidden'
@@ -94,7 +94,7 @@ export default function Header(props: HeaderProps) {
               Sign in
             </a>
           )}
-        <div class='rounded-lg bg-gradient-to-tr from-secondary to-primary p-px'>
+        <div class='p-px rounded-lg bg-gradient-to-tr from-secondary to-primary'>
           <a
             href='/submit'
             class='text-center text-white rounded-[7px] transition duration-300 px-4 py-2 block hover:bg-white hover:text-black hover:dark:bg-gray-900 hover:dark:!text-white'

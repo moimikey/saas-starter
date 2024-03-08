@@ -12,7 +12,7 @@ import IconBrandTwitter from 'tabler_icons_tsx/brand-twitter.tsx';
  */
 export default function Share(props: { url: URL; title: string }) {
   return (
-    <div class='flex flex-row gap-4 my-4'>
+    <div class='flex flex-row my-4 gap-4'>
       <span class='align-middle'>Share</span>
       <a
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(props.url.href)}`}

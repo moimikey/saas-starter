@@ -44,7 +44,7 @@ function FreePlanCard() {
       <div class='text-center'>
         <a
           href='/account/manage'
-          class='button-styles w-full rounded-md block'
+          class='block w-full button-styles rounded-md'
         >
           Manage
         </a>
@@ -90,7 +90,7 @@ function PremiumPlanCard(props: PremiumCardPlanProps) {
         </p>
         <p>
           <IconCheckCircle class={CHECK_STYLES} />
-          Official pro user badge <PremiumBadge class='w-5 h-5 inline' />
+          Official pro user badge <PremiumBadge class='inline w-5 h-5' />
         </p>
       </div>
 
@@ -98,7 +98,7 @@ function PremiumPlanCard(props: PremiumCardPlanProps) {
         {props.isSubscribed
           ? (
             <a
-              class='button-styles w-full rounded-md block'
+              class='block w-full button-styles rounded-md'
               href='/account/manage'
             >
               Manage
@@ -106,7 +106,7 @@ function PremiumPlanCard(props: PremiumCardPlanProps) {
           )
           : (
             <a
-              class='button-styles w-full rounded-md block'
+              class='block w-full button-styles rounded-md'
               href='/account/upgrade'
             >
               Upgrade
@@ -150,7 +150,7 @@ function EnterprisePricingCard() {
       <div class='text-center'>
         <a
           href='mailto:andy@deno.com'
-          class='button-styles w-full rounded-md block'
+          class='block w-full button-styles rounded-md'
         >
           Contact us
         </a>
@@ -176,7 +176,7 @@ export default defineRoute<State>(async (_req, ctx) => {
   return (
     <>
       <Head title='Pricing' href={ctx.url.href} />
-      <main class='mx-auto max-w-5xl w-full flex-1 flex flex-col justify-center px-4'>
+      <main class='flex flex-col justify-center flex-1 w-full max-w-5xl px-4 mx-auto'>
         <div class='mb-8 text-center'>
           <h1 class='heading-styles'>Pricing</h1>
           <p class='text-gray-500'>Choose the plan that suites you</p>
