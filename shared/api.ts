@@ -7,6 +7,6 @@ export interface FeedListItem {
   versionstamp?: string;
   text?: string;
   url?: string;
-  createdAt: string;
-  updatedAt?: string;
+  createdAt?: string | number | undefined;
+  updatedAt?: string | number | undefined;
 }

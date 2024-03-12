@@ -163,7 +163,7 @@ function ListItem({
     save(item, null, null);
   }, [item]);
 
-  const postCreatedTimestamp = new globalThis.Date(item.createdAt);
+  const postCreatedTimestamp = new globalThis.Date(item.createdAt!);
   const timestamp = `${postCreatedTimestamp.toLocaleDateString()} • ${postCreatedTimestamp.toLocaleTimeString()}`;
 
   return (
@@ -197,7 +197,7 @@ function ListItem({
           <time class='text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>{timestamp}</time>
           <div class='mt-2' />
           <Iframely url={String(item.url || item.text)} />
-          <Button onClick={doDelete} class='mt-6'>delete</Button>
+          <Button onClick={doDelete} class='mt-4'>delete</Button>
         </>
       )}
     </li>

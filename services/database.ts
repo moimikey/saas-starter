@@ -57,8 +57,8 @@ export async function writeItems(
       const item: FeedListItem = {
         text: input.text ?? undefined,
         url: input.url ?? undefined,
-        createdAt: new Date(createdAt) ?? undefined,
-        updatedAt: new Date(now) ?? undefined,
+        createdAt: createdAt ?? undefined,
+        updatedAt: now ?? undefined,
       };
       op.set(["list", listId, input.id], item);
     }
