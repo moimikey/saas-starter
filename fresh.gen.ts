@@ -34,6 +34,7 @@ import * as $submit from './routes/submit.tsx';
 import * as $terms_and_conditions_index from './routes/terms-and-conditions/index.tsx';
 import * as $users_login_ from './routes/users/[login].tsx';
 import * as $welcome from './routes/welcome.tsx';
+import * as $Button from './islands/Button.tsx';
 import * as $Chart from './islands/Chart.tsx';
 import * as $Iframely from './islands/Iframely.tsx';
 import * as $ItemsList from './islands/ItemsList.tsx';
@@ -77,6 +78,7 @@ const manifest = {
     './routes/welcome.tsx': $welcome,
   },
   islands: {
+    './islands/Button.tsx': $Button,
     './islands/Chart.tsx': $Chart,
     './islands/Iframely.tsx': $Iframely,
     './islands/ItemsList.tsx': $ItemsList,

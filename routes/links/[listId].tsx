@@ -96,9 +96,7 @@ function Home({
           <h1 class='heading-styles'>Links</h1>
           <p class='text-gray-500'>Expand URLs</p>
         </div>
-        <div class='flex flex-col md:flex-row gap-4'>
-          <ListView initialData={data} latency={latency} />
-        </div>
+        <ListView initialData={data} latency={latency} />
       </main>
     </>
   );

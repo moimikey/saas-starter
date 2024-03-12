@@ -1,4 +1,5 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
+import Button from '@/islands/Button.tsx';
 import { SITE_NAME } from '@/utils/constants.ts';
 import { User } from '@/utils/db.ts';
 import { isStripeEnabled } from '@/utils/stripe.ts';
@@ -90,18 +91,10 @@ export default function Header(props: HeaderProps) {
             </a>
           )
           : (
-            <a href='/signin' class='link-styles nav-item'>
+            <Button href='/signin'>
               Sign in
-            </a>
+            </Button>
           )}
-        <div class='p-px rounded-lg bg-gradient-to-tr from-secondary to-primary'>
-          <a
-            href='/submit'
-            class='text-center text-white rounded-[7px] transition duration-300 px-4 py-2 block hover:bg-white hover:text-black hover:dark:bg-gray-900 hover:dark:!text-white'
-          >
-            Submit
-          </a>
-        </div>
       </nav>
     </header>
   );

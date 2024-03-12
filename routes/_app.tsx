@@ -1,8 +1,8 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
-import Header from '@/components/Header.tsx';
-import Footer from '@/components/Footer.tsx';
-import type { State } from '@/plugins/session.ts';
 import { defineApp } from '$fresh/server.ts';
+import Footer from '@/components/Footer.tsx';
+import Header from '@/components/Header.tsx';
+import type { State } from '@/plugins/session.ts';
 
 export default defineApp<State>((_, ctx) => {
   if (ctx.url.pathname.startsWith('/kv-')) {
@@ -23,6 +23,7 @@ export default defineApp<State>((_, ctx) => {
             <Footer />
           </div>
         </div>
+        <script async src='//cdn.iframe.ly/embed.js'></script>
       </body>
     </html>
   );

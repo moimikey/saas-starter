@@ -1,12 +1,13 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
-import Head from '@/components/Head.tsx';
-import IconCheckCircle from 'tabler_icons_tsx/circle-check.tsx';
-import IconCircleX from 'tabler_icons_tsx/circle-x.tsx';
 import { defineRoute, Handlers } from '$fresh/server.ts';
+import Head from '@/components/Head.tsx';
+import Button from '@/islands/Button.tsx';
+import { assertSignedIn, type SignedInState, State } from '@/plugins/session.ts';
 import { createItem } from '@/utils/db.ts';
 import { redirect } from '@/utils/http.ts';
-import { assertSignedIn, type SignedInState, State } from '@/plugins/session.ts';
 import { ulid } from 'std/ulid/mod.ts';
+import IconCheckCircle from 'tabler_icons_tsx/circle-check.tsx';
+import IconCircleX from 'tabler_icons_tsx/circle-x.tsx';
 import IconInfo from 'tabler_icons_tsx/info-circle.tsx';
 
 const SUBMIT_STYLES =
@@ -115,19 +116,9 @@ export default defineRoute<State>((_req, ctx) => {
                 <IconInfo class='inline-block' /> Title and valid URL are required
               </div>
             )}
-            <div class='w-full p-px mt-8 rounded-lg bg-gradient-to-tr from-secondary to-primary'>
-              {!ctx.state.sessionUser
-                ? (
-                  <a href='/signin' class={SUBMIT_STYLES}>
-                    Sign in to submit &#8250;
-                  </a>
-                )
-                : (
-                  <button class={SUBMIT_STYLES}>
-                    Submit
-                  </button>
-                )}
-            </div>
+            <Button>
+              Submit
+            </Button>
           </form>
         </div>
       </main>

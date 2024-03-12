@@ -1,10 +1,10 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
+import GitHubAvatarImg from '@/components/GitHubAvatarImg.tsx';
+import { PremiumBadge } from '@/components/PremiumBadge.tsx';
+import type { User } from '@/utils/db.ts';
+import { fetchValues } from '@/utils/http.ts';
 import { useSignal } from '@preact/signals';
 import { useEffect } from 'preact/hooks';
-import type { User } from '@/utils/db.ts';
-import GitHubAvatarImg from '@/components/GitHubAvatarImg.tsx';
-import { fetchValues } from '@/utils/http.ts';
-import { PremiumBadge } from '@/components/PremiumBadge.tsx';
 
 const TH_STYLES = 'p-4 text-left';
 const TD_STYLES = 'p-4';
@@ -85,7 +85,6 @@ export default function UsersTable(props: UsersTableProps) {
       {cursorSig.value !== '' && (
         <button
           onClick={loadMoreUsers}
-          class='p-4 link-styles'
         >
           {isLoadingSig.value ? 'Loading...' : 'Load more'}
         </button>
