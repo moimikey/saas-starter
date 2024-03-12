@@ -22,7 +22,9 @@ export default function Iframely(props: IframelyProps) {
           encodeURIComponent(
             props.url,
           )
-        }&api_key=${KEY}&iframe=1&omit_script=1&ssl=1&card=small`,
+        }&api_key=${KEY}`.concat(`&iframe=1`).concat(`&omit_script=1`).concat(`&omit_css=true`).concat(`&ssl=1`).concat(
+          `&iframe=card`,
+        ),
       )
         .then((res) => res.json())
         .then(

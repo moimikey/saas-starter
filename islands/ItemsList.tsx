@@ -1,12 +1,12 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
+import GitHubAvatarImg from '@/components/GitHubAvatarImg.tsx';
+import { type Item } from '@/utils/db.ts';
+import { timeAgo } from '@/utils/display.ts';
+import { fetchValues } from '@/utils/http.ts';
 import { Signal, useComputed, useSignal } from '@preact/signals';
 import { useEffect } from 'preact/hooks';
-import { type Item } from '@/utils/db.ts';
-import IconInfo from 'tabler_icons_tsx/info-circle.tsx';
-import { fetchValues } from '@/utils/http.ts';
 import { decodeTime } from 'std/ulid/mod.ts';
-import { timeAgo } from '@/utils/display.ts';
-import GitHubAvatarImg from '@/components/GitHubAvatarImg.tsx';
+import IconInfo from 'tabler_icons_tsx/info-circle.tsx';
 
 async function fetchVotedItems() {
   const url = '/api/me/votes';
@@ -45,7 +45,7 @@ function VoteButton(props: VoteButtonProps) {
   }
 
   return (
-    <button onClick={onClick} class='hover:text-primary'>
+    <button onClick={onClick}>
       ▲
     </button>
   );
@@ -180,7 +180,7 @@ export default function ItemsList(props: ItemsListProps) {
         })
         : <EmptyItemsList />}
       {cursorSig.value !== '' && (
-        <button onClick={loadMoreItems} class='link-styles'>
+        <button onClick={loadMoreItems}>
           {isLoadingSig.value ? 'Loading...' : 'Load more'}
         </button>
       )}

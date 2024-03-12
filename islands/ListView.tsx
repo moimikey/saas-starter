@@ -1,4 +1,5 @@
-import IFramely from '@/islands/Iframely.tsx';
+import Button from '@/islands/Button.tsx';
+import Iframely from '@/islands/Iframely.tsx';
 import type { FeedList, FeedListItem } from '@/shared/api.ts';
 import axios from 'axios-web';
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
@@ -103,43 +104,30 @@ export default function ListView(props: {
   );
 
   return (
-    <div class='w-full'>
-      <div class='flex flex-col pb-4 gap-4'>
-        <div class='flex flex-row items-center gap-2'>
-          <div
-            class={`inline-block h-2 w-2 ${busy ? 'bg-yellow-600' : 'bg-primary'}`}
-            style={{ borderRadius: '50%' }}
-          >
-          </div>
-          <span class='text-sm opacity-50'>
-            Share this page to collaborate with others.
-          </span>
-        </div>
-        <div class='flex'>
-          <input
-            class='w-full px-3 py-2 mr-4 border rounded'
-            placeholder='Paste a link to post and expand'
-            ref={addTodoInput}
-          />
-          <div class='p-px rounded-lg bg-gradient-to-tr from-secondary to-primary'>
-            <button
-              onClick={addTodo}
-              disabled={adding}
-              class='text-center text-white rounded-[7px] transition duration-300 px-4 py-2 block hover:bg-white hover:text-black hover:dark:bg-gray-900 hover:dark:!text-white'
-            >
-              Add
-            </button>
-          </div>
-        </div>
+    <div class='w-full p-4'>
+      <div class='flex'>
+        <input
+          class='w-full px-3 py-2 mr-4 border rounded'
+          placeholder='Paste a link to post and expand'
+          ref={addTodoInput}
+        />
+        <Button
+          onClick={addTodo}
+          disabled={adding}
+        >
+          Add
+        </Button>
       </div>
       <div class='my-4'>
-        {data.items.map((item) => (
-          <ListItem
-            key={item.id! + ':' + item.versionstamp!}
-            item={item}
-            save={saveTodo}
-          />
-        ))}
+        <ol class='relative border-s border-gray-200 dark:border-gray-700'>
+          {data.items.map((item) => (
+            <ListItem
+              key={item.id! + ':' + item.versionstamp!}
+              item={item}
+              save={saveTodo}
+            />
+          ))}
+        </ol>
       </div>
       <div class='py-2 text-sm border-t border-gray-300 opacity-50'>
         <p>Initial data fetched in {props.latency}ms</p>
@@ -175,8 +163,11 @@ function ListItem({
     save(item, null, null);
   }, [item]);
 
+  const postCreatedTimestamp = new globalThis.Date(item.createdAt!);
+  const timestamp = `${postCreatedTimestamp.toLocaleDateString()} • ${postCreatedTimestamp.toLocaleTimeString()}`;
+
   return (
-    <div class='flex items-center' {...{ 'data-item-id': item.id! }}>
+    <li class='mb-10 ms-4' {...{ 'data-item-id': item.id! }} key={item.id!}>
       {editing && (
         <>
           <input
@@ -185,7 +176,6 @@ function ListItem({
             defaultValue={item.url}
           />
           <button
-            class='p-2 mr-2 rounded disabled:opacity-50'
             title='Save'
             onClick={doSave}
             disabled={busy}
@@ -193,7 +183,6 @@ function ListItem({
             💾
           </button>
           <button
-            class='p-2 rounded disabled:opacity-50'
             title='Cancel'
             onClick={cancelEdit}
             disabled={busy}
@@ -204,23 +193,14 @@ function ListItem({
       )}
       {!editing && (
         <>
-          <div class='flex flex-col w-full font-mono'>
-            <IFramely url={String(item.url || item.text)} />
-            <p class='text-xs leading-loose opacity-50'>
-              {new Date(item.createdAt).toISOString()} | **updated on {new Date(item.updatedAt).toISOString()}**
-            </p>
-          </div>
-          <button
-            class='p-2 disabled:opacity-50'
-            title='Delete'
-            onClick={doDelete}
-            disabled={busy}
-          >
-            🗑️
-          </button>
+          <div class='absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700' />
+          <time class='text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>{timestamp}</time>
+          <div class='mt-2' />
+          <Iframely url={String(item.url || item.text)} />
+          <Button onClick={doDelete} class='mt-4'>delete</Button>
         </>
       )}
-    </div>
+    </li>
   );
 }
 

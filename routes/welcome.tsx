@@ -1,5 +1,4 @@
 // Copyright 2023-2024 the Deno authors. All rights reserved. MIT license.
-import Page from '$flowbite/components/Page.tsx';
 import { defineRoute } from '$fresh/src/server/defines.ts';
 import Head from '@/components/Head.tsx';
 
@@ -47,7 +46,7 @@ export default defineRoute((req, ctx) => {
   return (
     <>
       <Head title='Welcome' href={ctx.url.href} />
-      <Page title='Blank Page'>
+      <>
         <section class='bg-white dark:bg-gray-900'>
           <div class='px-4 py-8 mx-auto text-center max-w-screen-xl lg:py-16 lg:px-12'>
             <a
@@ -189,7 +188,7 @@ export default defineRoute((req, ctx) => {
             </div>
           </div>
         </section>
-      </Page>
+      </>
     </>
   );
 });
